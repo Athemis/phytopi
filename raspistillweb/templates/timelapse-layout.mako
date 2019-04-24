@@ -3,37 +3,30 @@
 <html lang="en">
   <head>
     <title>${project}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="${request.static_url('raspistillweb:static/css/bootstrap.css')}" rel="stylesheet" media="screen">
-    <link href="${request.static_url('raspistillweb:static/css/bootstrap-responsive.css')}" rel="stylesheet">
-    
   </head>
   <body>
 
-    <div class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/">raspistillWeb</a>
+    <div class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">raspistillWeb</a>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+
+      <div class="navbar-collapse collapse" id="navbarNav">
+        <div class="navbar-nav mr-auto">
+          <a class="nav-link nav-item" href="/">Home</a>
+          <a class="nav-link nav-item" href="/settings">Settings</a>
+          <a class="nav-link nav-item" href="/archive">Archive</a>
+          <a class="nav-link nav-item active" href="/timelapse">Time Lapse</a>
         </div>
-        <div class="navbar-collapse collapse" style="height: 1px;">
-          <ul class="nav navbar-nav">
-            <li><a href="/">Home</a></li>
-            <li><a href="/settings">Settings</a></li>
-            <li><a href="/archive">Archive</a></li>
-            <li class="active"><a href="/timelapse">Time Lapse</a></li>
-          </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <form method="post">
-                <input type="button" class="btn btn-danger navbar-btn" value="Take Photo" onclick="location.href='/photo'">
-              </form>
-            </li>
-          </ul>
+        <div class="navbar-nav">
+          <form class="form-inline" method="post">
+            <input type="button" class="btn btn-danger navbar-btn" value="Take Photo" onclick="location.href='/photo'">
+          </form>
         </div>
       </div>
     </div>

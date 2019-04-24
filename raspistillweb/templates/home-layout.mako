@@ -5,8 +5,6 @@
     <title>${project}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="${request.static_url('raspistillweb:static/css/bootstrap.css')}" rel="stylesheet" media="screen">
-    <link href="${request.static_url('raspistillweb:static/css/bootstrap-responsive.css')}" rel="stylesheet">
-    
   </head>
   <body>
 
