@@ -25,7 +25,7 @@
               <dd>${timelapseTime}ms</dd>
             </dl>
             <form method="post">
-              <input type="button" class="btn btn-danger btn-lg" value="Start Timelapse" onclick="location.href='/timelapse_start'">
+              <input type="button" class="btn btn-primary btn-lg" value="Start Timelapse" onclick="location.href='/timelapse_start'">
             </form>
           </div>
       </div>
@@ -53,7 +53,7 @@
             <dd>${file['timeEnd']}</dd>
           </dl>
           <form action="delete_timelapse" method="POST">
-            <button type="submit" name="id" value="${file['id']}" class="btn btn-danger btn-sm btn-block">Delete</button>
+            <button type="submit" name="id" value="${file['id']}" class="btn btn-danger btn-sm btn-block mb-2">Delete</button>
           </form>
           <a href="${request.static_url('raspistillweb:time-lapse/')}${file['filename']}.tar.gz"><button type="button" class="btn btn-success btn-sm btn-block">Download</button></a>
         </div>
