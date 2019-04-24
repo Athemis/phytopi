@@ -5,7 +5,7 @@
   <div class="row">
   % for file in database:     
     <div class="col-sm-6 col-md-4 col-lg-3">
-      <div class="card">
+      <div class="card my-3">
           <a href="${request.static_url('raspistillweb:pictures/')}${file['filename']}">
             <img src="${request.static_url('raspistillweb:thumbnails/')}${file['filename']}" alt="${file['filename']}" class="card-img-top">
           </a> 
