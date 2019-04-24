@@ -41,7 +41,7 @@
     ${next.body()} 
   	
     <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="${request.static_url('raspistillweb:static/js/bootstrap.min.js')}"></script>
+    <script src="${request.static_url('raspistillweb:static/js/bootstrap.bundle.js')}"></script>
   
   </body>
 </html>
