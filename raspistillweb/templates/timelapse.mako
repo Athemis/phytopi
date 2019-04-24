@@ -4,19 +4,19 @@
 <div class="container">
   <div class="row">
     % if timelapse:
-      <div class="col-md-12">
+      <div class="col-lg-12">
         <div class="alert alert-danger alert-dismissable">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <strong>Timelapse in Progress.</strong> Please wait until the timelapse process has finished.          
         </div>
       </div>
     % else:
-    <div class="col-md-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">Timelapse</h3>
+    <div class="col-lg-12">
+      <div class="card my-3">
+        <div class="card-header">
+            <h3 class="card-title">Timelapse</h3>
           </div>
-          <div class="panel-body">
+          <div class="card-body">
             There is currently no timelapse in progress. You can start a timelapse with the folowing preferences or edit these settings on the <a href="/settings"><strong>settings page.</strong></a>
             <dl>
               <dt>Interval</dt>
@@ -34,15 +34,15 @@
   </div>
   <div class="row">
   % for file in timelapseDatabase:     
-    <div class="col-xs-6 col-sm-4 col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="card my-3">
+        <div class="card-header">
           <form action="delete_timelapse" method="POST">
             <button type="submit" name="id" value="${file['id']}" class="close">&times;</button>
           </form>
-          <h3 class="panel-title">${file['timeStart']}</h3>
+          <h3 class="card-title">${file['timeStart']}</h3>
         </div>
-        <div class="panel-body">
+        <div class="card-body">
           <dl>
             <dt>Image Effect</dt>
             <dd>${file['image_effect']}</dd>
