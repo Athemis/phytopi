@@ -5,7 +5,7 @@
   <div class="row">
     % if timelapse:
       <div class="col-lg-12">
-        <div class="alert alert-danger alert-dismissable">
+        <div class="alert alert-danger alert-dismissable fade show">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <strong>Timelapse in Progress.</strong> Please wait until the timelapse process has finished.          
         </div>
@@ -37,9 +37,6 @@
     <div class="col-sm-6 col-md-4 col-lg-3">
       <div class="card my-3">
         <div class="card-header">
-          <form action="delete_timelapse" method="POST">
-            <button type="submit" name="id" value="${file['id']}" class="close">&times;</button>
-          </form>
           <h3 class="card-title">${file['timeStart']}</h3>
         </div>
         <div class="card-body">
@@ -55,6 +52,9 @@
             <dt>End</dt>
             <dd>${file['timeEnd']}</dd>
           </dl>
+          <form action="delete_timelapse" method="POST">
+            <button type="submit" name="id" value="${file['id']}" class="btn btn-danger btn-sm btn-block">Delete</button>
+          </form>
           <a href="${request.static_url('raspistillweb:time-lapse/')}${file['filename']}.tar.gz"><button type="button" class="btn btn-success btn-sm btn-block">Download</button></a>
         </div>
       </div>     
