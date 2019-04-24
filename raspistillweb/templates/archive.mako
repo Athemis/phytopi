@@ -4,16 +4,16 @@
 <div class="container">
   <div class="row">
   % for file in database:     
-    <div class="col-xs-6 col-sm-4 col-md-3">
-      <div class="panel panel-default">
-        <div class="panel-heading">
+    <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="card">
+        <div class="card-header">
           <form action="delete_picture" method="POST">
             <button type="submit" name="id" value="${file['id']}" class="close">&times;</button>
           </form>
-          <h3 class="panel-title">${file['date']}</h3>
+          <h3 class="card-title">${file['date']}</h3>
         </div>
-        <div class="panel-body">
-          <a href="${request.static_url('raspistillweb:pictures/')}${file['filename']}" class="thumbnail img-rounded">
+        <div class="card-body">
+          <a href="${request.static_url('raspistillweb:pictures/')}${file['filename']}" class="img-thumbnail rounded">
             <img src="${request.static_url('raspistillweb:thumbnails/')}${file['filename']}" alt="${file['filename']}">
           </a> 
           <dl>
