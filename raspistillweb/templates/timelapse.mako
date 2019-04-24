@@ -55,7 +55,7 @@
           <form action="delete_timelapse" method="POST">
             <button type="submit" name="id" value="${file['id']}" class="btn btn-danger btn-sm btn-block mb-2">Delete</button>
           </form>
-          <a href="${request.static_url('raspistillweb:time-lapse/')}${file['filename']}.tar.gz"><button type="button" class="btn btn-success btn-sm btn-block">Download</button></a>
+          <a href="${request.static_url('raspistillweb:time-lapse/')}${file['filename']}.tar.gz" class="btn btn-success btn-sm btn-block">Download</a>
         </div>
       </div>     
     </div>   
