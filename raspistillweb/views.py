@@ -235,7 +235,7 @@ def photo_view(request):
             # populate from settings if exif is unavailable
             filedata['ISO'] = str(app_settings.image_ISO)
             filedata['resolution'] = '{} x {}'.format(app_settings.image_width, app_settings.image_height)
-            filedata['exposure_time'] = app_settings.exposure_time
+            filedata['exposure_time'] = None
 
         filedata['filename'] = filename
         filedata['image_effect'] = app_settings.image_effect
