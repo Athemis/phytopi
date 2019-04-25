@@ -3,6 +3,7 @@ from sqlalchemy import (
     Index,
     Integer,
     Text,
+    Float
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -29,7 +30,7 @@ class Picture(Base):
     ISO = Column(Integer)
     exposure_time = Column(Text)
     date = Column(Text)
-    timestamp = Column(Text)
+    timestamp = Column(Float)
     filesize = Column(Integer)
     encoding_mode = Column(Text)
 

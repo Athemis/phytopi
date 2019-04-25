@@ -254,7 +254,7 @@ def photo_view(request):
                         ISO=filedata['ISO'],
                         exposure_time=filedata['exposure_time'],
                         date=filedata['date'],
-                        timestamp=str(localtime()),
+                        timestamp=time(),
                         filesize=filedata['filesize'])
         DBSession.add(picture)
         return HTTPFound(location='/')  
