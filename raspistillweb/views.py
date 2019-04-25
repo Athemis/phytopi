@@ -198,11 +198,11 @@ def timelapse_view(request):
         timelapsedb.insert(0,timelapse_data)
     
     return {'project': 'raspistillWeb',
-            'timelapse' : timelapse,
-            'timelapseInterval' : str(app_settings.timelapse_interval),
-            'timelapseTime' : str(app_settings.timelapse_time),
-            'timelapseDatabase' : timelapsedb,
-            'percentage_completed' : percentage_completed
+            'timelapse': timelapse,
+            'timelapseInterval': str(app_settings.timelapse_interval),
+            'timelapseTime': str(app_settings.timelapse_time),
+            'timelapseDatabase': timelapsedb,
+            'percentage_completed': percentage_completed
             }
             
 # View for the timelapse start - no site will be generated
@@ -405,7 +405,7 @@ def take_photo(filename):
 
     
 def take_timelapse(filename):
-    global timelapse, timelapse_database
+    global timelapse, timelapse_database, p_timelapse, starttime, percentage_completed
 
     app_settings = DBSession.query(Settings).first()
     timelapsedata = {'filename' :  filename}
