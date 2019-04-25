@@ -44,6 +44,12 @@
         </div>
         <div class="card-body">
           <dl>
+            <dt>Number of Images</dt>
+            <dd>${file['n_images']}</dd>
+            <dt>Image Resolution</dt>
+            <dd>${file['resolution']}</dd>
+            <dt>Encoding Mode</dt>
+            <dd>${file['encoding_mode']}</dd>
             <dt>Image Effect</dt>
             <dd>${file['image_effect']}</dd>
             <dt>Exposure Mode</dt>

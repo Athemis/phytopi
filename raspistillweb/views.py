@@ -529,6 +529,9 @@ def get_timelapse_data(timelapse_rec):
     timelapse_data['awb_mode'] = timelapse_rec.awb_mode
     timelapse_data['timeStart'] = str(timelapse_rec.timeStart)
     timelapse_data['timeEnd'] = str(timelapse_rec.timeEnd)
+    timelapse_data['n_images'] = str(timelapse_rec.n_images)
+    timelapse_data['resolution'] = timelapse_rec.resolution
+    timelapse_data['encoding_mode'] = timelapse_rec.encoding_mode
     return timelapse_data
 
 # For 'time lapse in progress' bar
