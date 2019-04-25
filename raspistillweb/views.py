@@ -388,7 +388,6 @@ def take_photo(filename):
         + ' -rot ' + str(app_settings.image_rotation)
         + ' -ifx ' + app_settings.image_effect
         + iso_call
-        + ' -th ' + THUMBNAIL_SIZE 
         + ' -o ' + RASPISTILL_DIRECTORY + filename], stdout=PIPE, shell=True
         )
     if not (RASPISTILL_DIRECTORY == 'raspistillweb/pictures/'):
