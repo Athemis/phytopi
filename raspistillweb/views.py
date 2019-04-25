@@ -24,6 +24,8 @@ from subprocess import run, Popen, PIPE
 from time import gmtime, strftime, localtime, asctime, mktime, sleep, time
 from stat import *
 
+from PIL import Image
+
 from sqlalchemy.exc import DBAPIError
 
 import transaction
@@ -83,7 +85,8 @@ AWB_MODE_ALERT = 'Please enter a valid awb mode.'
 ISO_OPTION_ALERT = 'Please enter a valid ISO option.'
 IMAGE_ROTATION_ALERT = 'Please enter a valid image rotation option.'
 
-THUMBNAIL_SIZE = '240:160:80'
+THUMBNAIL_SIZE = 240, 160
+THUMBNAIL_QUALITY = 80
 
 timelapse = False
 timelapse_database = None
@@ -479,15 +482,18 @@ def take_timelapse(filename):
     return 
 
 def generate_thumbnail(filename):
-    run (
-        ['exif -e ' + RASPISTILL_DIRECTORY + filename
-        + ' -o ' + THUMBNAIL_DIRECTORY + filename], shell=True
-    )
-    if not (THUMBNAIL_DIRECTORY == 'raspistillweb/thumbnails/'):
-        run (
-            ['ln -s ' + THUMBNAIL_DIRECTORY + filename 
-            + ' raspistillweb/thumbnails/' + filename], shell=True
-            )
+    im = Image.open(RASPISTILL_DIRECTORY + filename)
+    im.thumbnail(THUMBNAIL_SIZE)
+    im.save(THUMBNAIL_DIRECTORY + basename + '.' + app_settings.encoding_mode, quality=THUMBNAIL_QUALITY, optimize=True, progressive=True)
+#    run (
+#        ['exif -e ' + RASPISTILL_DIRECTORY + filename
+#        + ' -o ' + THUMBNAIL_DIRECTORY + filename], shell=True
+#    )
+#    if not (THUMBNAIL_DIRECTORY == 'raspistillweb/thumbnails/'):
+#        run (
+#            ['ln -s ' + THUMBNAIL_DIRECTORY + filename 
+#            + ' raspistillweb/thumbnails/' + filename], shell=True
+#            )
     return
 
 def extract_exif(tags):
