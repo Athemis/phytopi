@@ -21,7 +21,7 @@
           <a class="nav-link nav-item active" href="/">Home</a>
           <a class="nav-link nav-item" href="/settings">Settings</a>
           <a class="nav-link nav-item" href="/archive">Archive</a>
-          <a class="nav-link nav-item" href="/timelapse">Time Lapse</a>
+          <a class="nav-link nav-item" href="/timelapse">Time-lapse</a>
         </div>
         <div class="navbar-nav">
           <form class="form-inline" method="post">
