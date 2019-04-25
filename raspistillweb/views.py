@@ -223,10 +223,15 @@ def photo_view(request):
         filename = '{}.{}'.format(basename, app_settings.encoding_mode)
         take_photo(filename)
         
-        f = open(RASPISTILL_DIRECTORY + filename, 'rb')
-        exif = extract_exif(exifread.process_file(f))    
+        if app_settings.encoding_mode == 'jpg':
+            f = open(RASPISTILL_DIRECTORY + filename, 'rb')
+            exif = extract_exif(exifread.process_file(f))
+        else:
+            exif = None
         filedata = extract_filedata(os.stat(RASPISTILL_DIRECTORY + filename))
-        filedata.update(exif)
+        if exif:
+            filedata.update(exif)
+
         filedata['filename'] = filename
         filedata['image_effect'] = app_settings.image_effect
         filedata['exposure_mode'] = app_settings.exposure_mode
