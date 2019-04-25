@@ -47,7 +47,7 @@ def main(argv=sys.argv):
                         ISO = 1,
                         exposure_time ='1',
                         date = '1',
-                        timestamp = '1',
+                        timestamp = 1,
                         filesize = 1,
                         encoding_mode = '-'
                         )
