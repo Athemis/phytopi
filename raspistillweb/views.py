@@ -222,21 +222,27 @@ def photo_view(request):
         basename = strftime("%Y-%m-%d.%H.%M.%S", localtime())
         filename = '{}.{}'.format(basename, app_settings.encoding_mode)
         take_photo(filename)
+        exif = None
         
         if app_settings.encoding_mode == 'jpg':
             f = open(RASPISTILL_DIRECTORY + filename, 'rb')
             exif = extract_exif(exifread.process_file(f))
-        else:
-            exif = None
+            
         filedata = extract_filedata(os.stat(RASPISTILL_DIRECTORY + filename))
-        if exif:
+        if exif is not None:
             filedata.update(exif)
+        else:
+            # populate from settings if exif is unavailable
+            filedata['ISO'] = str(app_settings.image_ISO)
+            filedata['resolution'] = '{} x {}'.format(app_settings.image_width, app_settings.image_height)
+            filedata['exposure_time'] = app_settings.exposure_time
 
         filedata['filename'] = filename
         filedata['image_effect'] = app_settings.image_effect
         filedata['exposure_mode'] = app_settings.exposure_mode
         filedata['encoding_mode'] = app_settings.encoding_mode
         filedata['awb_mode'] = app_settings.awb_mode
+
         '''
         imagedata = dict()
         imagedata['filename'] = filename
