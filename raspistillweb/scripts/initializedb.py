@@ -39,16 +39,17 @@ def main(argv=sys.argv):
     Base.metadata.create_all(engine)
     with transaction.manager:
         picture = Picture(
-                        filename = '1',
-                        image_effect = '1',
-                        exposure_mode = '1',
-                        awb_mode = '1',
-                        resolution = '1',
+                        filename = '-',
+                        image_effect = '-',
+                        exposure_mode = '-',
+                        awb_mode = '-',
+                        resolution = '-',
                         ISO = 1,
                         exposure_time ='1',
-                        date = '1',
-                        timestamp = '1',
-                        filesize = '1'
+                        date = '-',
+                        timestamp = '-',
+                        filesize = 1,
+                        encoding_mode = '-'
                         )
         DBSession.add(picture)
 
@@ -62,6 +63,7 @@ def main(argv=sys.argv):
                         awb_mode = 'auto',
                         image_ISO = 'auto',
                         image_rotation = '0'
+                        encoding_mode = 'jpg',
                         )
         DBSession.add(app_settings)
 
@@ -72,6 +74,9 @@ def main(argv=sys.argv):
                         exposure_mode = 'test',
                         awb_mode = 'auto',
                         timeEnd = 'none'
+                        n_images = 1,
+                        resolution = '-',
+                        encoding_mode = '-',
                         )
 
         DBSession.add(timelapse)

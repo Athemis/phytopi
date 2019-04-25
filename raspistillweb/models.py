@@ -31,6 +31,7 @@ class Picture(Base):
     date = Column(Text)
     timestamp = Column(Text)
     filesize = Column(Integer)
+    encoding_mode = Column(Text)
 
 class Settings(Base):
     __tablename__ = 'settings'
@@ -44,6 +45,7 @@ class Settings(Base):
     awb_mode = Column(Text)
     image_ISO = Column(Text)
     image_rotation = Column(Text)
+    encoding_mode = Column(Text)
 
 class Timelapse(Base):
     __tablename__ = 'timelapse'
@@ -54,5 +56,8 @@ class Timelapse(Base):
     exposure_mode = Column(Text)
     awb_mode = Column(Text)
     timeEnd = Column(Text)
+    n_images = Column(Integer)
+    resolution = Column(Text)
+    encoding_mode = Column(Text)
 
 Index('my_index', Picture.filename, unique=True, mysql_length=255)

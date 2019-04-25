@@ -67,13 +67,19 @@ ISO_OPTIONS = [
     ]
     
 IMAGE_RESOLUTIONS = [
-    '800x600','1024x786','1900x1200','1280x720','1920x1080', '2593x1944'
+    '800x600', '1024x786', '1900x1200', '1280x720', '1920x1080', '2593x1944',
+    '3280x2464'
+    ]
+
+ENCODING_MODES = [
+    'jpg', 'png', 'bmp', 'gif'
     ]
     
-IMAGE_HEIGHT_ALERT = 'Please enter an image height between 0 and 1945.'
-IMAGE_WIDTH_ALERT = 'Please enter an image width between 0 and 2593.'
+IMAGE_HEIGHT_ALERT = 'Please enter an image height between 0 and 2464 (or 1944 for the older v1 camera module).'
+IMAGE_WIDTH_ALERT = 'Please enter an image width between 0 and 3280 (or 2592 for the older v1 camera module).'
 IMAGE_EFFECT_ALERT = 'Please enter a valid image effect.'
 EXPOSURE_MODE_ALERT = 'Please enter a valid exposure mode.'
+ENCODING_MODE_ALERT = 'Please enter a valid encoding mode.'
 AWB_MODE_ALERT = 'Please enter a valid awb mode.'
 ISO_OPTION_ALERT = 'Please enter a valid ISO option.'
 IMAGE_ROTATION_ALERT = 'Please enter a valid image rotation option.'
@@ -82,6 +88,7 @@ THUMBNAIL_SIZE = '240:160:80'
 
 timelapse = False
 timelapse_database = None
+p_timelapse = []
 
 preferences_fail_alert = []
 preferences_success_alert = False
@@ -209,10 +216,11 @@ def photo_view(request):
         return HTTPFound(location='/') 
     else:
         app_settings = DBSession.query(Settings).first()
-        filename = strftime("%Y-%m-%d.%H.%M.%S.jpg", localtime())
+        basename = strftime("%Y-%m-%d.%H.%M.%S", localtime())
+        filename = '{}.{}'.format(basename, app_settings.encoding_mode)
         take_photo(filename)
         
-        f = open(RASPISTILL_DIRECTORY + filename,'rb')
+        f = open(RASPISTILL_DIRECTORY + filename, 'rb')
         exif = extract_exif(exifread.process_file(f))    
         filedata = extract_filedata(os.stat(RASPISTILL_DIRECTORY + filename))
         filedata.update(exif)
@@ -326,7 +334,12 @@ def save_view(request):
     if image_rotation_temp and image_rotation_temp in ['0','90','180','270']:
         app_settings.image_rotation = image_rotation_temp
     else:
-        preferences_fail_alert.append(IMAGE_ROTATION_ALERT)  
+        preferences_fail_alert.append(IMAGE_ROTATION_ALERT)
+
+    if encoding_mode_temp and encoding_mode_temp in ENCODING_MODES:
+        app_settings.encoding_mode = encoding_mode_temp
+    else:
+        preferences_fail_alert.append(ENCODING_MODE_ALERT)
         
     if preferences_fail_alert == []:
         preferences_success_alert = True 
@@ -349,13 +362,14 @@ def take_photo(filename):
         ['raspistill -t 500'
         + ' -w ' + str(app_settings.image_width)
         + ' -h ' + str(app_settings.image_height)
+        + ' -e ' + app_settings.encoding_mode
         + ' -ex ' + app_settings.exposure_mode
         + ' -awb ' + app_settings.awb_mode
         + ' -rot ' + str(app_settings.image_rotation)
         + ' -ifx ' + app_settings.image_effect
         + iso_call
         + ' -th ' + THUMBNAIL_SIZE 
-        + ' -o ' + RASPISTILL_DIRECTORY + filename], shell=True
+        + ' -o ' + RASPISTILL_DIRECTORY + filename], stdout=PIPE, shell=True
         )
     if not (RASPISTILL_DIRECTORY == 'raspistillweb/pictures/'):
         call (
@@ -381,6 +395,7 @@ def take_timelapse(filename):
         ['raspistill'
         + ' -w ' + str(app_settings.image_width)
         + ' -h ' + str(app_settings.image_height)
+        + ' -e ' + app_settings.encoding_mode
         + ' -ex ' + app_settings.exposure_mode
         + ' -awb ' + app_settings.awb_mode
         + ' -ifx ' + app_settings.image_effect
@@ -388,7 +403,7 @@ def take_timelapse(filename):
         + ' -tl ' + str(app_settings.timelapse_interval)
         + ' -t ' + str(app_settings.timelapse_time) 
         + ' -o ' + TIMELAPSE_DIRECTORY + filename + '/'
-        + filename + '_%04d.jpg'], shell=True
+        + filename + '_%04d.' + app_settings.encoding_mode], shell=True
         )    
     timelapsedata['image_effect'] = app_settings.image_effect
     timelapsedata['exposure_mode'] = app_settings.exposure_mode
