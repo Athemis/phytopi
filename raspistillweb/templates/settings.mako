@@ -37,7 +37,7 @@
       	  <form action="save" method="POST" role="form">
             <h4 class="form-text">Image preferences</h4>            
             <div class="form-group row">
-              <label for="imageResolution1" class="col-xl-2 control-label">Resolution</label>
+              <label for="imageResolution1" class="col-xl-2 col-form-label">Resolution</label>
               <div class="col-md-3">
                 <select name="imageResolution" class="form-control" id="imageResolution1">
                       <option selected>${image_width}x${image_height}</option>
