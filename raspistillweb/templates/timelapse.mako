@@ -21,7 +21,7 @@
             <dl>
               <dt>Interval</dt>
               <dd>${timelapseInterval}ms</dd>
-              <dt>Time</dt>
+              <dt>Duration</dt>
               <dd>${timelapseTime}ms</dd>
             </dl>
             <form method="post">
