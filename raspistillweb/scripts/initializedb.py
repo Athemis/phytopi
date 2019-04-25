@@ -51,7 +51,7 @@ def main(argv=sys.argv):
                         filesize = 1,
                         encoding_mode = '-'
                         )
-        DBSession.add(picture)
+        # DBSession.add(picture)
 
         app_settings = Settings(
                         image_width = 800,
