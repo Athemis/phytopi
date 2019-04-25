@@ -481,6 +481,7 @@ def take_timelapse(filename):
     return 
 
 def generate_thumbnail(filename):
+    basename = os.path.splitext(filename)[0]
     im = Image.open(RASPISTILL_DIRECTORY + filename)
     im.thumbnail(THUMBNAIL_SIZE)
     im.save(THUMBNAIL_DIRECTORY + basename + '.' + app_settings.encoding_mode, quality=THUMBNAIL_QUALITY, optimize=True, progressive=True)
