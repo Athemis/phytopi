@@ -62,7 +62,7 @@ def main(argv=sys.argv):
                         image_effect = 'none',
                         awb_mode = 'auto',
                         image_ISO = 'auto',
-                        image_rotation = '0'
+                        image_rotation = '0',
                         encoding_mode = 'jpg',
                         )
         DBSession.add(app_settings)
@@ -73,7 +73,7 @@ def main(argv=sys.argv):
                         image_effect = 'test',
                         exposure_mode = 'test',
                         awb_mode = 'auto',
-                        timeEnd = 'none'
+                        timeEnd = 'none',
                         n_images = 1,
                         resolution = '-',
                         encoding_mode = '-',
