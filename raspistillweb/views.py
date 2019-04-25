@@ -426,7 +426,7 @@ def take_timelapse(filename):
         d.start()
 
         p_timelapse = Popen(
-            ['raspistill'
+            ['raspistill '
             + ' -n '
             + ' -w ' + str(app_settings.image_width)
             + ' -h ' + str(app_settings.image_height)
@@ -434,7 +434,7 @@ def take_timelapse(filename):
             + ' -ex ' + app_settings.exposure_mode
             + ' -awb ' + app_settings.awb_mode
             + ' -ifx ' + app_settings.image_effect
-            + ' -th ' + THUMBNAIL_SIZE
+            + iso_call
             + ' -tl ' + str(app_settings.timelapse_interval)
             + ' -t ' + str(app_settings.timelapse_time) 
             + ' -o ' + TIMELAPSE_DIRECTORY + filename + '/'
