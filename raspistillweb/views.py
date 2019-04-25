@@ -487,7 +487,7 @@ def generate_thumbnail(filename):
 
     im = Image.open(RASPISTILL_DIRECTORY + filename)
     im.thumbnail(THUMBNAIL_SIZE)
-    im.save(THUMBNAIL_DIRECTORY + basename + '.' + app_settings.encoding_mode, quality=THUMBNAIL_QUALITY, optimize=True, progressive=True)
+    im.save(THUMBNAIL_DIRECTORY + basename + '.jpg', quality=THUMBNAIL_QUALITY, optimize=True, progressive=True)
     return
 
 def extract_exif(tags):
