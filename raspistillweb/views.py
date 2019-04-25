@@ -540,7 +540,7 @@ def percentage():
     app_settings = DBSession.query(Settings).first()
     while(timelapse and percentage_completed < 100):
         currenttime = time()
-        percentage_completed = int((currenttime - starttime) * 100 // app_settings.timelapse_time)
+        percentage_completed = int(((currenttime - starttime) * 1000 / app_settings.timelapse_time) * 100)
         if (percentage_completed > 100):
             percentage_completed = 100
         sleep(1)
