@@ -20,10 +20,9 @@ import exifread
 import os
 import threading
 import tarfile
-from subprocess import call
-from time import gmtime, strftime, localtime, asctime, mktime
+from subprocess import run, Popen, PIPE
+from time import gmtime, strftime, localtime, asctime, mktime, sleep, time
 from stat import *
-from datetime import *
 
 from sqlalchemy.exc import DBAPIError
 
@@ -89,6 +88,8 @@ THUMBNAIL_SIZE = '240:160:80'
 timelapse = False
 timelapse_database = None
 p_timelapse = []
+percentage_completed = 0
+starttime = 0
 
 preferences_fail_alert = []
 preferences_success_alert = False
@@ -123,10 +124,12 @@ def settings_view(request):
         preferences_success_alert = False
         
     return {'project' : 'raspistillWeb',
+            'image_effects' : IMAGE_EFFECTS,
             'image_effect' : app_settings.image_effect,
             'exposure_mode' : app_settings.exposure_mode,
             'awb_mode' : app_settings.awb_mode,
-            'image_effects' : IMAGE_EFFECTS,
+            'encoding_modes' : ENCODING_MODES,
+            'encoding_mode' : app_settings.encoding_mode,
             'exposure_modes' : EXPOSURE_MODES,
             'awb_modes' : AWB_MODES,
             'image_width' : str(app_settings.image_width),
@@ -227,6 +230,7 @@ def photo_view(request):
         filedata['filename'] = filename
         filedata['image_effect'] = app_settings.image_effect
         filedata['exposure_mode'] = app_settings.exposure_mode
+        filedata['encoding_mode'] = app_settings.encoding_mode
         filedata['awb_mode'] = app_settings.awb_mode
         '''
         imagedata = dict()
@@ -245,11 +249,12 @@ def photo_view(request):
                         image_effect=filedata['image_effect'],
                         exposure_mode=filedata['exposure_mode'],
                         awb_mode=filedata['awb_mode'],
+                        encoding_mode=filedata['encoding_mode'],
                         resolution=filedata['resolution'],
                         ISO=filedata['ISO'],
                         exposure_time=filedata['exposure_time'],
                         date=filedata['date'],
-                        timestamp='test',
+                        timestamp=str(localtime()),
                         filesize=filedata['filesize'])
         DBSession.add(picture)
         return HTTPFound(location='/')  
@@ -286,6 +291,7 @@ def save_view(request):
     image_ISO_temp = request.params['isoOption']
     image_rotation_temp = request.params['imageRotation']
     image_resolution = request.params['imageResolution']
+    encoding_mode_temp = request.params['encodingMode']
 
     app_settings = DBSession.query(Settings).first()
     
@@ -358,7 +364,7 @@ def take_photo(filename):
         iso_call = ''
     else:
         iso_call = ' -ISO ' + str(app_settings.image_ISO)
-    call (
+    run (
         ['raspistill -t 500'
         + ' -w ' + str(app_settings.image_width)
         + ' -h ' + str(app_settings.image_height)
@@ -372,7 +378,7 @@ def take_photo(filename):
         + ' -o ' + RASPISTILL_DIRECTORY + filename], stdout=PIPE, shell=True
         )
     if not (RASPISTILL_DIRECTORY == 'raspistillweb/pictures/'):
-        call (
+        run (
             ['ln -s ' + RASPISTILL_DIRECTORY + filename
             + ' raspistillweb/pictures/' + filename], shell=True
             )
@@ -391,30 +397,59 @@ def take_timelapse(filename):
     timelapsedata = {'filename' :  filename}
     timelapsedata['timeStart'] = str(asctime(localtime()))
     os.makedirs(TIMELAPSE_DIRECTORY + filename)
-    call (
-        ['raspistill'
-        + ' -w ' + str(app_settings.image_width)
-        + ' -h ' + str(app_settings.image_height)
-        + ' -e ' + app_settings.encoding_mode
-        + ' -ex ' + app_settings.exposure_mode
-        + ' -awb ' + app_settings.awb_mode
-        + ' -ifx ' + app_settings.image_effect
-        + ' -th ' + THUMBNAIL_SIZE
-        + ' -tl ' + str(app_settings.timelapse_interval)
-        + ' -t ' + str(app_settings.timelapse_time) 
-        + ' -o ' + TIMELAPSE_DIRECTORY + filename + '/'
-        + filename + '_%04d.' + app_settings.encoding_mode], shell=True
-        )    
+    timelapse_interval_ms = app_settings.timelapse_interval*1000
+    timelapse_time_ms = app_settings.timelapse_time*1000
+    if app_settings.image_ISO == 'auto':
+        iso_call = ''
+    else:
+        iso_call = ' -ISO ' + str(app_settings.image_ISO)
+    try:
+        print('Starting time-lapse acquisition...')
+
+        # For 'time lapse in progress' bar
+        starttime = time()
+        d = threading.Thread(target=percentage)
+        d.start()
+
+        p_timelapse = Popen(
+            ['raspistill'
+            + ' -n '
+            + ' -w ' + str(app_settings.image_width)
+            + ' -h ' + str(app_settings.image_height)
+            + ' -e ' + app_settings.encoding_mode
+            + ' -ex ' + app_settings.exposure_mode
+            + ' -awb ' + app_settings.awb_mode
+            + ' -ifx ' + app_settings.image_effect
+            + ' -th ' + THUMBNAIL_SIZE
+            + ' -tl ' + str(app_settings.timelapse_interval)
+            + ' -t ' + str(app_settings.timelapse_time) 
+            + ' -o ' + TIMELAPSE_DIRECTORY + filename + '/'
+            + 'IMG_' + filename + '_%04d.' + app_settings.encoding_mode], 
+            stdout=PIPE, shell=True, preexec_fn=os.setsid
+            )
+        p_timelapse.wait()
+        print('Finished time-lapse acquisition.')
+    except:
+        os.killpg(p_timelapse.pid, signal.SIGTERM)
+        p_timelapse.wait()
+        raise
+    
+    timelapsedata['n_images'] = str(len([name for name in os.listdir(TIMELAPSE_DIRECTORY + filename) if os.path.isfile(os.path.join(TIMELAPSE_DIRECTORY + filename, name))]))
+    timelapsedata['resolution'] = str(app_settings.image_width) + ' x ' + str(app_settings.image_height)
     timelapsedata['image_effect'] = app_settings.image_effect
     timelapsedata['exposure_mode'] = app_settings.exposure_mode
+    timelapsedata['encoding_mode'] = app_settings.encoding_mode
     timelapsedata['awb_mode'] = app_settings.awb_mode
     timelapsedata['timeEnd'] = str(asctime(localtime()))
 
     timelapse_data = Timelapse(
                         filename = timelapsedata['filename'],
                         timeStart = timelapsedata['timeStart'],
+                        n_images = timelapsedata['n_images'],
+                        resolution = timelapsedata['resolution'],
                         image_effect = timelapsedata['image_effect'],
                         exposure_mode = timelapsedata['exposure_mode'],
+                        encoding_mode = timelapsedata['encoding_mode'],
                         awb_mode = timelapsedata['awb_mode'],
                         timeEnd = timelapsedata['timeEnd'],
                     )
@@ -429,16 +464,16 @@ def take_timelapse(filename):
 
     #timelapse_database = timelapse_data
     timelapse = False
-    
+    percentage_completed = 0
     return 
 
 def generate_thumbnail(filename):
-    call (
+    run (
         ['exif -e ' + RASPISTILL_DIRECTORY + filename
         + ' -o ' + THUMBNAIL_DIRECTORY + filename], shell=True
     )
     if not (THUMBNAIL_DIRECTORY == 'raspistillweb/thumbnails/'):
-        call (
+        run (
             ['ln -s ' + THUMBNAIL_DIRECTORY + filename 
             + ' raspistillweb/thumbnails/' + filename], shell=True
             )
@@ -484,3 +519,15 @@ def get_timelapse_data(timelapse_rec):
     timelapse_data['timeStart'] = str(timelapse_rec.timeStart)
     timelapse_data['timeEnd'] = str(timelapse_rec.timeEnd)
     return timelapse_data
+
+# For 'time lapse in progress' bar
+def percentage():
+    global timelapse, starttime, percentage_completed
+    app_settings = DBSession.query(Settings).first()
+    while(timelapse and percentage_completed < 100):
+        currenttime = time()
+        percentage_completed = int((currenttime - starttime) * 100 // app_settings.timelapse_time)
+        if (percentage_completed > 100):
+            percentage_completed = 100
+        sleep(1)
+    return percentage_completed

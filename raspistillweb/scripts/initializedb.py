@@ -39,19 +39,19 @@ def main(argv=sys.argv):
     Base.metadata.create_all(engine)
     with transaction.manager:
         picture = Picture(
-                        filename = '-',
-                        image_effect = '-',
-                        exposure_mode = '-',
-                        awb_mode = '-',
-                        resolution = '-',
+                        filename = '1',
+                        image_effect = '1',
+                        exposure_mode = '1',
+                        awb_mode = '1',
+                        resolution = '1',
                         ISO = 1,
                         exposure_time ='1',
-                        date = '-',
-                        timestamp = '-',
+                        date = '1',
+                        timestamp = '1',
                         filesize = 1,
                         encoding_mode = '-'
                         )
-        # DBSession.add(picture)
+        DBSession.add(picture)
 
         app_settings = Settings(
                         image_width = 800,

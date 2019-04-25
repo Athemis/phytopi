@@ -71,10 +71,23 @@
               </div>
             </div>
             
-            
+            <div class="form-group row">
+              <label for="ecodingMode1" class="col-lg-2 control-label">Encoding Mode</label>
+              <div class="col-xl-10">
+                <select name="encodingMode" class="form-control" id="encodingMode1">
+                  % for mode in encoding_modes:
+                    % if mode == encoding_mode:
+                      <option selected>${mode}</option>
+                    % else:
+                      <option>${mode}</option>
+                    % endif
+                  % endfor
+                </select>
+              </div>
+            </div>
             
             <div class="form-group row">
-              <label for="isoOption1" class="col-xl-2 col-form-label">ISO Option</label>
+              <label for="isoOption1" class="col-lg-2 control-label">ISO Option</label>
               <div class="col-xl-10">
                 <select name="isoOption" class="form-control" id="isoOption1">
                   % for option in iso_options:
@@ -87,8 +100,6 @@
                 </select>
               </div>
             </div>
-            
-            
             
             <div class="form-group row">
               <label for="exposureMode1" class="col-xl-2 col-form-label">Exposure Mode</label>
