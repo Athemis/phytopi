@@ -7,7 +7,10 @@
       <div class="col-lg-12">
         <div class="alert alert-danger alert-dismissable fade show">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-          <strong>Timelapse in Progress.</strong> Please wait until the timelapse process has finished.          
+          <strong>Timelapse in Progress.</strong> Please wait until the timelapse process has finished.
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: ${percentage_completed}%;">${percentage_completed}%</div>
+          </div>        
         </div>
       </div>
     % else:

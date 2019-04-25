@@ -201,7 +201,8 @@ def timelapse_view(request):
             'timelapse' : timelapse,
             'timelapseInterval' : str(app_settings.timelapse_interval),
             'timelapseTime' : str(app_settings.timelapse_time),
-            'timelapseDatabase' : timelapsedb
+            'timelapseDatabase' : timelapsedb,
+            'percentage_completed' : percentage_completed
             }
             
 # View for the timelapse start - no site will be generated
@@ -483,19 +484,10 @@ def take_timelapse(filename):
 def generate_thumbnail(filename):
     app_settings = DBSession.query(Settings).first()
     basename = os.path.splitext(filename)[0]
-    
+
     im = Image.open(RASPISTILL_DIRECTORY + filename)
     im.thumbnail(THUMBNAIL_SIZE)
     im.save(THUMBNAIL_DIRECTORY + basename + '.' + app_settings.encoding_mode, quality=THUMBNAIL_QUALITY, optimize=True, progressive=True)
-#    run (
-#        ['exif -e ' + RASPISTILL_DIRECTORY + filename
-#        + ' -o ' + THUMBNAIL_DIRECTORY + filename], shell=True
-#    )
-#    if not (THUMBNAIL_DIRECTORY == 'raspistillweb/thumbnails/'):
-#        run (
-#            ['ln -s ' + THUMBNAIL_DIRECTORY + filename 
-#            + ' raspistillweb/thumbnails/' + filename], shell=True
-#            )
     return
 
 def extract_exif(tags):
