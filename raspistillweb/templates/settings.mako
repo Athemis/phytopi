@@ -4,8 +4,8 @@
 <div class="container">
   % if preferences_success_alert:
     <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <div class="alert alert-success alert-dismissable">
+      <div class="col-lg-10 col-lg-offset-1">
+        <div class="alert alert-success alert-dismissable fade show">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <strong>Success!</strong> Settings saved. Please follow <a href="/photo" class="alert-link">this link</a> to take a photo.
         </div>
@@ -14,8 +14,8 @@
   % endif
   % if preferences_fail_alert != []: 
     <div class="row">
-      <div class="col-md-10 col-md-offset-1">
-        <div class="alert alert-danger alert-dismissable">
+      <div class="col-lg-10 col-lg-offset-1">
+        <div class="alert alert-danger alert-dismissable fade show">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <strong>Error!</strong> <br>
           <ul>
@@ -28,17 +28,17 @@
     </div>
   % endif
   <div class="row">
-    <div class="col-md-10 col-md-offset-1">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title">Preferences</h3>
+    <div class="col-lg-10 col-lg-offset-1 my-3 mx-auto">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Settings</h3>
         </div>
-        <div class="panel-body">
-      	  <form action="save" method="POST" class="form-horizontal" role="form">
-            <span class="help-block">Image preferences:</span>            
-            <div class="form-group">
-              <label for="imageResolution1" class="col-lg-2 control-label">Image Resolution</label>
-              <div class="col-sm-3">
+        <div class="card-body">
+      	  <form action="save" method="POST" role="form">
+            <h4 class="form-text">Image preferences</h4>            
+            <div class="form-group row">
+              <label for="imageResolution1" class="col-xl-2 control-label">Resolution</label>
+              <div class="col-md-3">
                 <select name="imageResolution" class="form-control" id="imageResolution1">
                       <option selected>${image_width}x${image_height}</option>
                   % for resolution in image_resolutions:
@@ -48,20 +48,24 @@
                   % endfor
                 </select>
               </div>
-              <div class="col-sm-1">
-                <label for="imageResolution2" class="control-label">or</label>
+
+              <div class="col-md-1">
+                <label for="imageResolution2" class="col-form-label">or</label>
               </div>
                             
-              
-              <div class="col-md-4 col-lg-3 col-sm-4">
-                <div class="input-group">
-                  <span class="input-group-addon">width</span>
+              <div class="col-lg-4 col-xl-3 col-md-4">
+                <div class="input-group" id="imageResolution2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">width</span>
+                  </div>
                   <input type="number" class="form-control" name="imageWidth" placeholder="${image_width}">
                 </div>
               </div>
-              <div class="col-md-4 col-lg-3 col-sm-4">
+              <div class="col-lg-4 col-xl-3 col-md-4">
                 <div class="input-group">
-                  <span class="input-group-addon">height</span>
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="">height</span>
+                  </div>
                   <input type="number" class="form-control" name="imageHeight" placeholder="${image_height}">
                 </div>                
               </div>
@@ -69,9 +73,9 @@
             
             
             
-            <div class="form-group">
-              <label for="isoOption1" class="col-lg-2 control-label">ISO Option</label>
-              <div class="col-lg-10">
+            <div class="form-group row">
+              <label for="isoOption1" class="col-xl-2 col-form-label">ISO Option</label>
+              <div class="col-xl-10">
                 <select name="isoOption" class="form-control" id="isoOption1">
                   % for option in iso_options:
                     % if option == image_iso:
@@ -86,9 +90,9 @@
             
             
             
-            <div class="form-group">
-              <label for="exposureMode1" class="col-lg-2 control-label">Exposure Mode</label>
-              <div class="col-lg-10">
+            <div class="form-group row">
+              <label for="exposureMode1" class="col-xl-2 col-form-label">Exposure Mode</label>
+              <div class="col-xl-10">
                 <select name="exposureMode" class="form-control" id="exposureMode1">
                   % for mode in exposure_modes:
                     % if mode == exposure_mode:
@@ -100,9 +104,9 @@
                 </select>
               </div>
             </div>
-            <div class="form-group">
-              <label for="imageEffect1" class="col-lg-2 control-label">Image Effect</label>
-              <div class="col-lg-10">
+            <div class="form-group row">
+              <label for="imageEffect1" class="col-xl-2 col-form-label">Image Effect</label>
+              <div class="col-xl-10">
                 <select name="imageEffect" class="form-control" id="imageEffect1">             
                   % for effect in image_effects:
                     % if effect == image_effect:
@@ -114,9 +118,9 @@
                 </select>
               </div>  
             </div>
-            <div class="form-group">
-              <label for="awbMode1" class="col-lg-2 control-label">AWB Mode</label>
-              <div class="col-lg-10">
+            <div class="form-group row">
+              <label for="awbMode1" class="col-xl-2 col-form-label">AWB Mode</label>
+              <div class="col-xl-10">
                 <select name="awbMode" class="form-control" id="awbMode1">             
                   % for mode in awb_modes:
                     % if mode == awb_mode:
@@ -128,9 +132,9 @@
                 </select>
               </div>  
             </div>
-            <div class="form-group">
-              <label for="imageRotation1" class="col-lg-2 control-label">Image Rotation</label>
-              <div class="col-lg-10">
+            <div class="form-group row">
+              <label for="imageRotation1" class="col-xl-2 col-form-label">Image Rotation</label>
+              <div class="col-xl-10">
                 <div class="btn-group" data-toggle="buttons">
                   <label class="btn btn-default ${'active' if image_rotation == '0' else ''}">
                     <input type="radio" name="imageRotation" value="0" ${'checked' if image_rotation == '0' else ''}><span class="glyphicon glyphicon-circle-arrow-up"></span> 0°
@@ -147,21 +151,21 @@
                 </div>
               </div>  
             </div>
-            <span class="help-block">Timelapse preferences:</span>
-      	    <div class="form-group">
-              <label for="TimelapseInterval1" class="col-lg-2 control-label">Timelapse Interval (ms)</label>
-              <div class="col-lg-10">
+            <h4 class="form-text">Time-lapse preferences</h4>
+      	    <div class="form-group row">
+              <label for="TimelapseInterval1" class="col-xl-2 col-form-label">Interval (ms)</label>
+              <div class="col-xl-10">
                 <input type="number" class="form-control" id="TimelapseInterval1" name="timelapseInterval" placeholder="${timelapse_interval}">
               </div>
             </div>
-      	    <div class="form-group">
-              <label for="TimelapseTime1" class="col-lg-2 control-label">Timelapse Time (ms)</label>
-              <div class="col-lg-10">
+      	    <div class="form-group row">
+              <label for="TimelapseTime1" class="col-xl-2 col-form-label">Duration (ms)</label>
+              <div class="col-xl-10">
                 <input type="number" class="form-control" id="TimelapseTime1" name="timelapseTime" placeholder="${timelapse_time}">
               </div>
             </div>
-            <div class="form-group">
-              <div class="col-lg-offset-2 col-lg-10">
+            <div class="form-group row">
+              <div class="col-xl-offset-2 col-xl-10">
                 <button type="submit" class="btn btn-primary">Save</button>
               </div>
             </div>
