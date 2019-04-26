@@ -442,7 +442,7 @@ def take_timelapse(filename):
 
     timelapse_interval_ms = convert_to_milli_seconds(app_settings.timelapse_interval, app_settings.timelapse_interval_unit)
     timelapse_time_ms = convert_to_milli_seconds(app_settings.timelapse_time, app_settings.timelapse_time_unit)
-    
+
     if app_settings.image_ISO == 'auto':
         iso_call = ''
     else:
@@ -568,9 +568,10 @@ def get_timelapse_data(timelapse_rec):
 def percentage():
     global timelapse, starttime, percentage_completed
     app_settings = DBSession.query(Settings).first()
+    timelapse_time_ms = convert_to_milli_seconds(app_settings.timelapse_time, app_settings.timelapse_time_unit)
     while(timelapse and percentage_completed < 100):
         currenttime = time()
-        percentage_completed = int(((currenttime - starttime) * 1000 / app_settings.timelapse_time) * 100)
+        percentage_completed = int(((currenttime - starttime) * 1000 / timelapse_time_ms) * 100)
         if (percentage_completed > 100):
             percentage_completed = 100
         sleep(1)
