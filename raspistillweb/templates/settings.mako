@@ -164,15 +164,37 @@
             </div>
             <h4 class="form-text">Time-lapse preferences</h4>
       	    <div class="form-group row">
-              <label for="TimelapseInterval1" class="col-xl-2 col-form-label">Interval (ms)</label>
+              <label for="input-group TimelapseInterval1" class="col-xl-2 col-form-label">Interval (ms)</label>
               <div class="col-xl-10">
                 <input type="number" class="form-control" id="TimelapseInterval1" name="timelapseInterval" placeholder="${timelapse_interval}">
+                <div class="input-group-append">
+                  <select name="timelapseIntervalUnit" class="form-control" id="timelapseIntervalUnit">             
+                  % for unit in timelapse_units:
+                    % if unit == timelapse_interval_unit:
+                      <option selected>${unit}</option>
+                    % else:
+                      <option>${unit}</option>
+                    % endif
+                  % endfor
+                </select>
+                </div>
               </div>
             </div>
       	    <div class="form-group row">
               <label for="TimelapseTime1" class="col-xl-2 col-form-label">Duration (ms)</label>
-              <div class="col-xl-10">
+              <div class="input-group col-xl-10">
                 <input type="number" class="form-control" id="TimelapseTime1" name="timelapseTime" placeholder="${timelapse_time}">
+                <div class="input-group-append">
+                  <select name="timelapseTimeUnit" class="form-control" id="timelapseTimeUnit">             
+                    % for unit in timelapse_units:
+                      % if unit == timelapse_time_unit:
+                        <option selected>${unit}</option>
+                      % else:
+                        <option>${unit}</option>
+                      % endif
+                    % endfor
+                  </select>
+                </div>
               </div>
             </div>
             <div class="form-group row">
