@@ -21,13 +21,21 @@
           </div>
           <div class="card-body">
             There is currently no timelapse in progress. You can start a timelapse with the folowing preferences or edit these settings on the <a href="/settings"><strong>settings page.</strong></a>
-            <dl>
-              <dt>Interval</dt>
-              <dd>${timelapseInterval}ms</dd>
-              <dt>Duration</dt>
-              <dd>${timelapseTime}ms</dd>
-            </dl>
             <form method="post">
+              <div class="form-group row">
+                <label for="timelapseInterval" class="col-form-label">Interval</label>
+                <input type="number" class="form-control" id="timelapseInterval" placeholder="${timelapseInterval}">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="timelapseIntervalUnit">ms</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <label for="timelapseDuration" class="col-form-label">Duration</label>
+                <input type="number" class="form-control" id="timelapseDuration" placeholder="${timelapseTime}">
+                <div class="input-group-append">
+                  <span class="input-group-text" id="timelapseDurationUnit">ms</span>
+                </div>
+              </div>
               <input type="button" class="btn btn-primary btn-lg" value="Start Timelapse" onclick="location.href='/timelapse_start'">
             </form>
           </div>
