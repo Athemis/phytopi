@@ -339,19 +339,19 @@ def save_view(request):
 
     global preferences_success_alert, preferences_fail_alert
 
-        image_width_temp = request.params['imageWidth']
-        image_height_temp = request.params['imageHeight']
-        timelapse_interval_temp = request.params['timelapseInterval']
-        timelapse_interval_unit_temp = request.params['timelapseIntervalUnit']
-        timelapse_time_temp = request.params['timelapseTime']
-        timelapse_time_unit_temp = request.params['timelapseTimeUnit']
-        exposure_mode_temp = request.params['exposureMode']
-        image_effect_temp = request.params['imageEffect']
-        awb_mode_temp = request.params['awbMode']
-        image_ISO_temp = request.params['isoOption']
-        image_rotation_temp = request.params['imageRotation']
-        image_resolution = request.params['imageResolution']
-        encoding_mode_temp = request.params['encodingMode']
+    image_width_temp = request.params['imageWidth']
+    image_height_temp = request.params['imageHeight']
+    timelapse_interval_temp = request.params['timelapseInterval']
+    timelapse_interval_unit_temp = request.params['timelapseIntervalUnit']
+    timelapse_time_temp = request.params['timelapseTime']
+    timelapse_time_unit_temp = request.params['timelapseTimeUnit']
+    exposure_mode_temp = request.params['exposureMode']
+    image_effect_temp = request.params['imageEffect']
+    awb_mode_temp = request.params['awbMode']
+    image_ISO_temp = request.params['isoOption']
+    image_rotation_temp = request.params['imageRotation']
+    image_resolution = request.params['imageResolution']
+    encoding_mode_temp = request.params['encodingMode']
 
     app_settings = DBSession.query(Settings).first()
     
