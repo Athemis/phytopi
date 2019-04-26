@@ -229,6 +229,9 @@ def timelapse_view(request):
 @view_config(route_name='timelapse_start')
 def timelapse_start_view(request):
     global timelapse
+
+    save_view(request)
+
     timelapse = True
     filename = strftime("%Y-%m-%d.%H.%M.%S", localtime())
     t = threading.Thread(target=take_timelapse, args=(filename, ))
