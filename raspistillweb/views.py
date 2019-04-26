@@ -231,9 +231,24 @@ def timelapse_view(request):
 def timelapse_start_view(request):
     global timelapse
 
-    savereq = Request.blank('/save')
-    response = request.invoke_subrequest(savereq)
-    print(response)
+    app_settings = DBSession.query(Settings).first()
+
+    timelapse_interval_temp = request.params['timelapseInterval']
+    timelapse_interval_unit_temp = request.params['timelapseIntervalUnit']
+    timelapse_time_temp = request.params['timelapseTime']
+    timelapse_time_unit_temp = request.params['timelapseTimeUnit']
+
+    if timelapse_interval_temp:
+        app_settings.timelapse_interval = timelapse_interval_temp
+
+    if timelapse_interval_unit_temp:
+        app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        
+    if timelapse_time_temp:
+        app_settings.timelapse_time = timelapse_time_temp
+    
+    if timelapse_time_unit_temp:
+        app_settings.timelapse_time_unit = timelapse_time_unit_temp
 
     timelapse = True
     filename = strftime("%Y-%m-%d.%H.%M.%S", localtime())
