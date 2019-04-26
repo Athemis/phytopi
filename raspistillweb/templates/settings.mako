@@ -4,7 +4,7 @@
 <div class="container">
   % if preferences_success_alert:
     <div class="row">
-      <div class="col-lg-10 col-lg-offset-1">
+      <div class="col-lg-10 col-lg-offset-1 mt-3 mx-auto">
         <div class="alert alert-success alert-dismissable fade show">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <strong>Success!</strong> Settings saved. Please follow <a href="/photo" class="alert-link">this link</a> to take a photo.
@@ -14,7 +14,7 @@
   % endif
   % if preferences_fail_alert != []: 
     <div class="row">
-      <div class="col-lg-10 col-lg-offset-1">
+      <div class="col-lg-10 col-lg-offset-1 mt-3 mx-auto">
         <div class="alert alert-danger alert-dismissable fade show">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <strong>Error!</strong> <br>

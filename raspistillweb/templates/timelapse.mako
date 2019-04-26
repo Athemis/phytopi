@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     % if timelapse:
-      <div class="col-lg-12">
+      <div class="col-lg-12 mt-3 mx-auto">
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <p class="card-text mb-3"><strong>Timelapse in Progress.</strong> Please wait until the timelapse process has finished or stop by pressing the button below.</p>
