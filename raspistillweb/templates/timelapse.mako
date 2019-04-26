@@ -23,17 +23,21 @@
             There is currently no timelapse in progress. You can start a timelapse with the folowing preferences or edit these settings on the <a href="/settings"><strong>settings page.</strong></a>
             <form method="post">
               <div class="form-group row">
-                <label for="timelapseInterval" class="col-form-label">Interval</label>
-                <input type="number" class="form-control" id="timelapseInterval" placeholder="${timelapseInterval}">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="timelapseIntervalUnit">ms</span>
+                <label for="timelapseInterval" class="col-form-label col-xl-2">Interval</label>
+                <div class="col-xl-10">
+                  <input type="number" class="form-control" id="timelapseInterval" placeholder="${timelapseInterval}">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="timelapseIntervalUnit">ms</span>
+                  </div>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="timelapseDuration" class="col-form-label">Duration</label>
-                <input type="number" class="form-control" id="timelapseDuration" placeholder="${timelapseTime}">
-                <div class="input-group-append">
-                  <span class="input-group-text" id="timelapseDurationUnit">ms</span>
+                <label for="timelapseDuration" class="col-form-label col-xl-2">Duration</label>
+                <div class="col-xl-10">
+                  <input type="number" class="form-control" id="timelapseDuration" placeholder="${timelapseTime}">
+                  <div class="input-group-append">
+                    <span class="input-group-text" id="timelapseDurationUnit">ms</span>
+                  </div>
                 </div>
               </div>
               <input type="button" class="btn btn-primary btn-lg" value="Start Timelapse" onclick="location.href='/timelapse_start'">
