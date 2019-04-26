@@ -20,7 +20,9 @@
             <h3 class="card-title">Timelapse</h3>
           </div>
           <div class="card-body">
-            There is currently no timelapse in progress. You can start a timelapse with the folowing preferences or edit these settings on the <a href="/settings"><strong>settings page.</strong></a>
+            <p class="card-text mb-3">
+            There is currently no timelapse in progress. You can start a timelapse with the following settings. Other options can be changed on the <a href="/settings"><strong>settings page.</strong></a>
+            </p>
             <form action="timelapse_start" method="POST" role="form">
               <div class="form-group row">
                 <label for="timelapseInterval" class="col-form-label col-xl-2">Interval</label>
