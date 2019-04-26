@@ -23,6 +23,7 @@ import tarfile
 from subprocess import run, Popen, PIPE
 from time import gmtime, strftime, localtime, asctime, mktime, sleep, time
 from stat import *
+from enum import Enum
 
 from PIL import Image
 
@@ -74,6 +75,10 @@ IMAGE_RESOLUTIONS = [
 
 ENCODING_MODES = [
     'jpg', 'png', 'bmp', 'gif'
+    ]
+
+TIMELAPSE_UNITS = [
+    'ms', 's', 'min', 'h', 'd', 'w', 'm', 'y'
     ]
     
 IMAGE_HEIGHT_ALERT = 'Please enter an image height between 0 and 2464 (or 1944 for the older v1 camera module).'
@@ -140,7 +145,9 @@ def settings_view(request):
             'image_iso' : app_settings.image_ISO,
             'iso_options' :  ISO_OPTIONS, 
             'timelapse_interval' : str(app_settings.timelapse_interval),
+            'timelapse_interval_unit' : str(app_settings.timelapse_interval_unit),
             'timelapse_time' : str(app_settings.timelapse_time),
+            'timelapse_time_unit' : str(app_settings.timelapse_time_unit),
             'preferences_fail_alert' : preferences_fail_alert_temp,
             'preferences_success_alert' : preferences_success_alert_temp,
             'image_rotation' : app_settings.image_rotation,
@@ -200,7 +207,9 @@ def timelapse_view(request):
     return {'project': 'raspistillWeb',
             'timelapse': timelapse,
             'timelapseInterval': str(app_settings.timelapse_interval),
+            'timelapseIntervalUnit': str(app_settings.timelapse_interval_unit),
             'timelapseTime': str(app_settings.timelapse_time),
+            'timelapseTimeUnit': str(app_settings.timelapse_time_unit),
             'timelapseDatabase': timelapsedb,
             'percentage_completed': percentage_completed
             }
@@ -299,7 +308,9 @@ def save_view(request):
     image_width_temp = request.params['imageWidth']
     image_height_temp = request.params['imageHeight']
     timelapse_interval_temp = request.params['timelapseInterval']
+    timelapse_interval_unit_temp = request.params['timelapseIntervalUnit']
     timelapse_time_temp = request.params['timelapseTime']
+    timelapse_time_unit_temp = request.params['timelapseTimeUnit']
     exposure_mode_temp = request.params['exposureMode']
     image_effect_temp = request.params['imageEffect']
     awb_mode_temp = request.params['awbMode']
@@ -328,9 +339,15 @@ def save_view(request):
             
     if timelapse_interval_temp:
         app_settings.timelapse_interval = timelapse_interval_temp
+
+    if timelapse_interval_unit_temp:
+        app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
         
     if timelapse_time_temp:
         app_settings.timelapse_time = timelapse_time_temp
+    
+    if timelapse_time_unit_temp:
+        app_settings.timelapse_time_unit = timelapse_time_unit_temp
     
     if exposure_mode_temp and exposure_mode_temp in EXPOSURE_MODES:
         app_settings.exposure_mode = exposure_mode_temp
@@ -411,8 +428,9 @@ def take_timelapse(filename):
     timelapsedata = {'filename' :  filename}
     timelapsedata['timeStart'] = str(asctime(localtime()))
     os.makedirs(TIMELAPSE_DIRECTORY + filename)
-    timelapse_interval_ms = app_settings.timelapse_interval*1000
-    timelapse_time_ms = app_settings.timelapse_time*1000
+    # TODO: Replace with calculation dependent on unit chosen
+    timelapse_interval_ms = app_settings.timelapse_interval
+    timelapse_time_ms = app_settings.timelapse_time
     if app_settings.image_ISO == 'auto':
         iso_call = ''
     else:
@@ -435,8 +453,8 @@ def take_timelapse(filename):
             + ' -awb ' + app_settings.awb_mode
             + ' -ifx ' + app_settings.image_effect
             + iso_call
-            + ' -tl ' + str(app_settings.timelapse_interval)
-            + ' -t ' + str(app_settings.timelapse_time) 
+            + ' -tl ' + str(app_settings.timelapse_interval_ms)
+            + ' -t ' + str(app_settings.timelapse_time_ms) 
             + ' -o ' + TIMELAPSE_DIRECTORY + filename + '/'
             + 'IMG_' + filename + '_%04d.' + app_settings.encoding_mode], 
             stdout=PIPE, shell=True, preexec_fn=os.setsid
