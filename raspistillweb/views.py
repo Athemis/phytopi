@@ -250,6 +250,8 @@ def timelapse_start_view(request):
     if timelapse_time_unit_temp:
         app_settings.timelapse_time_unit = timelapse_time_unit_temp
 
+    DBSession.flush()
+
     timelapse = True
     filename = strftime("%Y-%m-%d.%H.%M.%S", localtime())
     t = threading.Thread(target=take_timelapse, args=(filename, ))
