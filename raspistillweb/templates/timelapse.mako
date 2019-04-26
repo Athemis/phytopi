@@ -29,7 +29,7 @@
                   <div class="input-group-append">
                      <select name="timelapseIntervalUnit" class="form-control" id="timelapseIntervalUnit">             
                       % for unit in timelapse_units:
-                        % if unit == timelapse_interval_unit:
+                        % if unit == timelapseIntervalUnit:
                           <option selected>${unit}</option>
                         % else:
                           <option>${unit}</option>
@@ -46,7 +46,7 @@
                   <div class="input-group-append">
                     <select name="timelapseTimeUnit" class="form-control" id="timelapseTimeUnit">             
                       % for unit in timelapse_units:
-                        % if unit == timelapse_time_unit:
+                        % if unit == timelapseTimeUnit:
                           <option selected>${unit}</option>
                         % else:
                           <option>${unit}</option>

@@ -207,7 +207,7 @@ def timelapse_view(request):
     
     return {'project': 'raspistillWeb',
             'timelapse': timelapse,
-            'timelapse_units': TIMELAPSE_UNITS,
+            'timelapseUnits': TIMELAPSE_UNITS,
             'timelapseInterval': str(app_settings.timelapse_interval),
             'timelapseIntervalUnit': str(app_settings.timelapse_interval_unit),
             'timelapseTime': str(app_settings.timelapse_time),
