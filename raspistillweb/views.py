@@ -89,6 +89,7 @@ ENCODING_MODE_ALERT = 'Please enter a valid encoding mode.'
 AWB_MODE_ALERT = 'Please enter a valid awb mode.'
 ISO_OPTION_ALERT = 'Please enter a valid ISO option.'
 IMAGE_ROTATION_ALERT = 'Please enter a valid image rotation option.'
+TIMELAPSE_TIME_INTERVAL_ALERT = 'Time-lapse interval needs to be smaller than total duration of time-lapse.'
 
 THUMBNAIL_SIZE = 240, 160
 THUMBNAIL_QUALITY = 80
@@ -238,17 +239,19 @@ def timelapse_start_view(request):
     timelapse_time_temp = request.params['timelapseTime']
     timelapse_time_unit_temp = request.params['timelapseTimeUnit']
 
-    if timelapse_interval_temp:
-        app_settings.timelapse_interval = timelapse_interval_temp
+    if timelapse_interval_unit_temp and timelapse_interval_temp and timelapse_time_unit_temp and timelapse_time_temp:
 
-    if timelapse_interval_unit_temp:
-        app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
-        
-    if timelapse_time_temp:
-        app_settings.timelapse_time = timelapse_time_temp
-    
-    if timelapse_time_unit_temp:
-        app_settings.timelapse_time_unit = timelapse_time_unit_temp
+        timelapse_interval_ms = convert_to_milli_seconds(timelapse_interval_temp, timelapse_interval_unit_temp)
+        timelapse_time_ms = convert_to_milli_seconds(timelapse_time_temp, timelapse_interval_unit_temp)
+
+        if timelapse_interval_ms < timelapse_time_ms:
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+            app_settings.timelapse_interval = timelapse_interval_temp
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_time = timelapse_time_temp
+        else:
+            preferences_fail_alert.append(TIMELAPSE_TIME_INTERVAL_ALERT)
+
 
     DBSession.flush()
 
