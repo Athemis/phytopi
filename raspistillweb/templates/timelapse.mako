@@ -25,7 +25,7 @@
               <div class="form-group row">
                 <label for="timelapseInterval" class="col-form-label col-xl-2">Interval</label>
                 <div class="input-group col-xl-10">
-                  <input type="number" class="form-control" id="timelapseInterval" placeholder="${timelapseInterval}">
+                  <input type="number" class="form-control" name="timelapseInterval" id="timelapseInterval" placeholder="${timelapseInterval}">
                   <div class="input-group-append">
                      <select name="timelapseIntervalUnit" class="form-control" id="timelapseIntervalUnit">             
                       % for unit in timelapseUnits:
@@ -42,7 +42,7 @@
               <div class="form-group row">
                 <label for="timelapseTime" class="col-form-label col-xl-2">Duration</label>
                 <div class="input-group col-xl-10">
-                  <input type="number" class="form-control" id="timelapseTime" placeholder="${timelapseTime}">
+                  <input type="number" class="form-control" name="timelapseTime" id="timelapseTime" placeholder="${timelapseTime}">
                   <div class="input-group-append">
                     <select name="timelapseTimeUnit" class="form-control" id="timelapseTimeUnit">             
                       % for unit in timelapseUnits:
