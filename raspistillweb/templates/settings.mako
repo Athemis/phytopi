@@ -164,8 +164,8 @@
             </div>
             <h4 class="form-text">Time-lapse preferences</h4>
       	    <div class="form-group row">
-              <label for="input-group TimelapseInterval1" class="col-xl-2 col-form-label">Interval (ms)</label>
-              <div class="col-xl-10">
+              <label for="TimelapseInterval1" class="col-xl-2 col-form-label">Interval</label>
+              <div class="input-group col-xl-10">
                 <input type="number" class="form-control" id="TimelapseInterval1" name="timelapseInterval" placeholder="${timelapse_interval}">
                 <div class="input-group-append">
                   <select name="timelapseIntervalUnit" class="form-control" id="timelapseIntervalUnit">             
@@ -181,7 +181,7 @@
               </div>
             </div>
       	    <div class="form-group row">
-              <label for="TimelapseTime1" class="col-xl-2 col-form-label">Duration (ms)</label>
+              <label for="TimelapseTime1" class="col-xl-2 col-form-label">Duration</label>
               <div class="input-group col-xl-10">
                 <input type="number" class="form-control" id="TimelapseTime1" name="timelapseTime" placeholder="${timelapse_time}">
                 <div class="input-group-append">
