@@ -56,7 +56,7 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary btn-lg">Start Timelapse</button>
+              <input type="submit" class="btn btn-danger btn-lg" value="Start time-lapse" formaction="/timelapse_start">
             </form>
           </div>
       </div>

@@ -339,31 +339,18 @@ def save_view(request):
 
     global preferences_success_alert, preferences_fail_alert
 
-    if request.params['imageWidth']:
         image_width_temp = request.params['imageWidth']
-    if request.params['imageHeight']:
         image_height_temp = request.params['imageHeight']
-    if request.params['timelapseInterval']:
         timelapse_interval_temp = request.params['timelapseInterval']
-    if request.params['timelapseIntervalUnit']:
         timelapse_interval_unit_temp = request.params['timelapseIntervalUnit']
-    if request.params['timelapseTime']:
         timelapse_time_temp = request.params['timelapseTime']
-    if request.params['timelapseTimeUnit']:
         timelapse_time_unit_temp = request.params['timelapseTimeUnit']
-    if request.params['exposureMode']:
         exposure_mode_temp = request.params['exposureMode']
-    if request.params['imageEffect']:
         image_effect_temp = request.params['imageEffect']
-    if request.params['awbMode']:
         awb_mode_temp = request.params['awbMode']
-    if request.params['isoOption']:
         image_ISO_temp = request.params['isoOption']
-    if request.params['imageRotation']:
         image_rotation_temp = request.params['imageRotation']
-    if request.params['imageResolution']:
         image_resolution = request.params['imageResolution']
-    if request.params['encodingMode']:
         encoding_mode_temp = request.params['encodingMode']
 
     app_settings = DBSession.query(Settings).first()
