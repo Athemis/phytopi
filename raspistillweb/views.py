@@ -16,6 +16,7 @@
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
+from pyramid.request import Request
 import exifread
 import os
 import threading
@@ -230,7 +231,9 @@ def timelapse_view(request):
 def timelapse_start_view(request):
     global timelapse
 
-    save_view(request)
+    savereq = Request.blank('/save')
+    response = request.invoke_subrequest(savereq)
+    print(response)
 
     timelapse = True
     filename = strftime("%Y-%m-%d.%H.%M.%S", localtime())
