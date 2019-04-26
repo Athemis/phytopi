@@ -27,16 +27,32 @@
                 <div class="input-group col-xl-10">
                   <input type="number" class="form-control" id="timelapseInterval" placeholder="${timelapseInterval}">
                   <div class="input-group-append">
-                    <span class="input-group-text" id="timelapseIntervalUnit">ms</span>
+                     <select name="timelapseIntervalUnit" class="form-control" id="timelapseIntervalUnit">             
+                      % for unit in timelapse_units:
+                        % if unit == timelapse_interval_unit:
+                          <option selected>${unit}</option>
+                        % else:
+                          <option>${unit}</option>
+                        % endif
+                      % endfor
+                    </select>
                   </div>
                 </div>
               </div>
               <div class="form-group row">
-                <label for="timelapseDuration" class="col-form-label col-xl-2">Duration</label>
+                <label for="timelapseTime" class="col-form-label col-xl-2">Duration</label>
                 <div class="input-group col-xl-10">
-                  <input type="number" class="form-control" id="timelapseDuration" placeholder="${timelapseTime}">
+                  <input type="number" class="form-control" id="timelapseTime" placeholder="${timelapseTime}">
                   <div class="input-group-append">
-                    <span class="input-group-text" id="timelapseDurationUnit">ms</span>
+                    <select name="timelapseTimeUnit" class="form-control" id="timelapseTimeUnit">             
+                      % for unit in timelapse_units:
+                        % if unit == timelapse_time_unit:
+                          <option selected>${unit}</option>
+                        % else:
+                          <option>${unit}</option>
+                        % endif
+                      % endfor
+                    </select>
                   </div>
                 </div>
               </div>

@@ -144,6 +144,7 @@ def settings_view(request):
             'image_height' : str(app_settings.image_height),
             'image_iso' : app_settings.image_ISO,
             'iso_options' :  ISO_OPTIONS, 
+            'timelapse_units': TIMELAPSE_UNITS,
             'timelapse_interval' : str(app_settings.timelapse_interval),
             'timelapse_interval_unit' : str(app_settings.timelapse_interval_unit),
             'timelapse_time' : str(app_settings.timelapse_time),
@@ -206,6 +207,7 @@ def timelapse_view(request):
     
     return {'project': 'raspistillWeb',
             'timelapse': timelapse,
+            'timelapse_units': TIMELAPSE_UNITS,
             'timelapseInterval': str(app_settings.timelapse_interval),
             'timelapseIntervalUnit': str(app_settings.timelapse_interval_unit),
             'timelapseTime': str(app_settings.timelapse_time),
