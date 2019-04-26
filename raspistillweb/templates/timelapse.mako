@@ -21,7 +21,7 @@
           </div>
           <div class="card-body">
             There is currently no timelapse in progress. You can start a timelapse with the folowing preferences or edit these settings on the <a href="/settings"><strong>settings page.</strong></a>
-            <form action="save" method="POST" role="form">
+            <form action="timelapse_start" method="POST" role="form">
               <div class="form-group row">
                 <label for="timelapseInterval" class="col-form-label col-xl-2">Interval</label>
                 <div class="input-group col-xl-10">
@@ -56,7 +56,7 @@
                   </div>
                 </div>
               </div>
-              <input type="submit" class="btn btn-danger btn-lg" value="Start time-lapse" formaction="/timelapse_start">
+              <input type="submit" class="btn btn-danger btn-lg" value="Start time-lapse>
             </form>
           </div>
       </div>
