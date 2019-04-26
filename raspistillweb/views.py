@@ -453,8 +453,8 @@ def take_timelapse(filename):
             + ' -awb ' + app_settings.awb_mode
             + ' -ifx ' + app_settings.image_effect
             + iso_call
-            + ' -tl ' + str(app_settings.timelapse_interval_ms)
-            + ' -t ' + str(app_settings.timelapse_time_ms) 
+            + ' -tl ' + str(timelapse_interval_ms)
+            + ' -t ' + str(timelapse_time_ms) 
             + ' -o ' + TIMELAPSE_DIRECTORY + filename + '/'
             + 'IMG_' + filename + '_%04d.' + app_settings.encoding_mode], 
             stdout=PIPE, shell=True, preexec_fn=os.setsid
