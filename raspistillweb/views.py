@@ -23,7 +23,6 @@ import tarfile
 from subprocess import run, Popen, PIPE
 from time import gmtime, strftime, localtime, asctime, mktime, sleep, time
 from stat import *
-from enum import Enum
 
 from PIL import Image
 
@@ -92,6 +91,16 @@ IMAGE_ROTATION_ALERT = 'Please enter a valid image rotation option.'
 
 THUMBNAIL_SIZE = 240, 160
 THUMBNAIL_QUALITY = 80
+
+TIME_CONVERSION_MILLI_SECONDS = {
+    'ms': 1,
+    's': 1000,
+    'min': 60000,
+    'h': 3600000,
+    'd': 86400000,
+    'w': 604800000,
+    'y': 31536000000
+}
 
 timelapse = False
 timelapse_database = None
@@ -430,9 +439,10 @@ def take_timelapse(filename):
     timelapsedata = {'filename' :  filename}
     timelapsedata['timeStart'] = str(asctime(localtime()))
     os.makedirs(TIMELAPSE_DIRECTORY + filename)
-    # TODO: Replace with calculation dependent on unit chosen
-    timelapse_interval_ms = app_settings.timelapse_interval
-    timelapse_time_ms = app_settings.timelapse_time
+
+    timelapse_interval_ms = convert_to_milli_seconds(app_settings.timelapse_interval, app_settings.timelapse_interval_unit)
+    timelapse_time_ms = convert_to_milli_seconds(app_settings.timelapse_time, app_settings.timelapse_time_unit)
+    
     if app_settings.image_ISO == 'auto':
         iso_call = ''
     else:
@@ -565,3 +575,10 @@ def percentage():
             percentage_completed = 100
         sleep(1)
     return percentage_completed
+
+def convert_to_milli_seconds(value, unit):
+    if unit not in TIMELAPSE_UNITS:
+        raise ValueError("Unknown unit")
+
+    return value * TIME_CONVERSION_MILLI_SECONDS[unit]
+    
