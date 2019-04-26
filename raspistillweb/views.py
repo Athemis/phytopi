@@ -251,6 +251,30 @@ def timelapse_start_view(request):
             app_settings.timelapse_time = timelapse_time_temp
         else:
             preferences_fail_alert.append(TIMELAPSE_TIME_INTERVAL_ALERT)
+    elif timelapse_interval_unit_temp and timelapse_time_unit_temp:
+        if timelapse_interval_unit_temp == 's' and timelapse_time_unit_temp not in ['ms']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'min' and timelapse_time_unit_temp not in ['ms', 's']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'h' and timelapse_time_unit_temp not in ['ms', 's', 'min']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'd' and timelapse_time_unit_temp not in ['ms', 's', 'min', 'h']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'w' and timelapse_time_unit_temp not in ['ms', 's', 'min', 'h', 'd']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'm' and timelapse_time_unit_temp not in ['ms', 's', 'min', 'h', 'd', 'w']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'y' and timelapse_time_unit_temp not in ['ms', 's', 'min', 'h', 'd', 'w', 'm']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        else:
+            preferences_fail_alert.append(TIMELAPSE_TIME_INTERVAL_ALERT)
 
 
     DBSession.flush()
@@ -386,6 +410,31 @@ def save_view(request):
             app_settings.timelapse_time = timelapse_time_temp
         else:
             preferences_fail_alert.append(TIMELAPSE_TIME_INTERVAL_ALERT)
+    elif timelapse_interval_unit_temp and timelapse_time_unit_temp:
+        if timelapse_interval_unit_temp == 's' and timelapse_time_unit_temp not in ['ms']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'min' and timelapse_time_unit_temp not in ['ms', 's']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'h' and timelapse_time_unit_temp not in ['ms', 's', 'min']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'd' and timelapse_time_unit_temp not in ['ms', 's', 'min', 'h']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'w' and timelapse_time_unit_temp not in ['ms', 's', 'min', 'h', 'd']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'm' and timelapse_time_unit_temp not in ['ms', 's', 'min', 'h', 'd', 'w']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        elif timelapse_interval_unit_temp == 'y' and timelapse_time_unit_temp not in ['ms', 's', 'min', 'h', 'd', 'w', 'm']:
+            app_settings.timelapse_time_unit = timelapse_time_unit_temp
+            app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
+        else:
+            preferences_fail_alert.append(TIMELAPSE_TIME_INTERVAL_ALERT)
+
     
     if exposure_mode_temp and exposure_mode_temp in EXPOSURE_MODES:
         app_settings.exposure_mode = exposure_mode_temp
