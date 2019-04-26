@@ -56,7 +56,7 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn btn-primary btn-lg" onclick="location.href='/timelapse_start'">Start Timelapse</button>
+              <button type="submit" class="btn btn-primary btn-lg">Start Timelapse</button>
             </form>
           </div>
       </div>
