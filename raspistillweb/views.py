@@ -470,7 +470,12 @@ def save_view(request):
         preferences_success_alert = True 
     
     DBSession.flush()      
-    return HTTPFound(location='/settings')  
+    return HTTPFound(location='/settings')
+
+@view_config(route_name='progress_json', renderer='json')
+def progress_view(request):
+    return {'progress': percentage()}
+
 
 ###############################################################################
 ############ Helper functions to keep the code clean ##########################

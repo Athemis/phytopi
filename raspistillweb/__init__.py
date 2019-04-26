@@ -44,6 +44,7 @@ def main(global_config, **settings):
     config.add_route('archive','/archive')
     config.add_route('timelapse','/timelapse')
     config.add_route('photo','/photo')
+    config.add_route('progress_json', '/progress.json')
     config.add_route('timelapse_start','/timelapse_start')
     config.scan()
     return config.make_wsgi_app()
