@@ -16,8 +16,8 @@
     <div class="card my-3 mx-auto">
       <div class="row no-gutters">
         <div class="col-lg-8">
-          <a href="${request.static_path('raspistillweb:pictures/'), _scheme='https'}${imagedata['filename']}">
-            <img src="${request.static_path('raspistillweb:pictures/'), _scheme='https'}${imagedata['filename']}" class="card-img">
+          <a href="${request.static_path('raspistillweb:pictures/', _scheme='https')}${imagedata['filename']}">
+            <img src="${request.static_path('raspistillweb:pictures/', _scheme='https')}${imagedata['filename']}" class="card-img">
           </a>
         </div>
         <div class="col-lg-4">
