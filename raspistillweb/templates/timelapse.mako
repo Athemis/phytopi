@@ -9,7 +9,7 @@
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <p class="card-text mb-3"><strong>Timelapse in Progress.</strong> Please wait until the timelapse process has finished or stop by pressing the button below.</p>
           <div class="progress mb-3">
-            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="${percentage_completed}%" aria-valuemin="0" aria-valuemax="100" style="width: ${percentage_completed}%;">${percentage_completed}%</div>
+            <div id="progressbar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="${percentage_completed}%" aria-valuemin="0" aria-valuemax="100" style="width: ${percentage_completed}%;">${percentage_completed}%</div>
           </div>
           <a class="btn btn-danger btn-lg" role="button" href="/stop_timelapse">Stop time-lapse</a>
         </div>
