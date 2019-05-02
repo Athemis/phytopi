@@ -242,7 +242,7 @@ def timelapse_start_view(request):
     if timelapse_interval_unit_temp and timelapse_interval_temp and timelapse_time_unit_temp and timelapse_time_temp:
 
         timelapse_interval_ms = convert_to_milli_seconds(timelapse_interval_temp, timelapse_interval_unit_temp)
-        timelapse_time_ms = convert_to_milli_seconds(timelapse_time_temp, timelapse_interval_unit_temp)
+        timelapse_time_ms = convert_to_milli_seconds(timelapse_time_temp, timelapse_time_unit_temp)
 
         if timelapse_interval_ms < timelapse_time_ms:
             app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
@@ -401,7 +401,7 @@ def save_view(request):
     if timelapse_interval_unit_temp and timelapse_interval_temp and timelapse_time_unit_temp and timelapse_time_temp:
 
         timelapse_interval_ms = convert_to_milli_seconds(timelapse_interval_temp, timelapse_interval_unit_temp)
-        timelapse_time_ms = convert_to_milli_seconds(timelapse_time_temp, timelapse_interval_unit_temp)
+        timelapse_time_ms = convert_to_milli_seconds(timelapse_time_temp, timelapse_time_unit_temp)
 
         if timelapse_interval_ms < timelapse_time_ms:
             app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
