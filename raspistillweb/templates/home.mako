@@ -5,7 +5,7 @@
   % if timelapse:
     <div class="row">
       <div class="col-lg-12">
-        <div class="alert alert-danger alert-dismissable fade show">
+        <div class="alert alert-danger alert-dismissible fade show">
           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
           <strong>Timelapse in progress.</strong> Currently it is not possible to take a photo. You can stop the timelapse if you follow <a href="/timelapse" class="alert-link">this link</a>.
         </div>
@@ -16,8 +16,8 @@
     <div class="card my-3 mx-auto">
       <div class="row no-gutters">
         <div class="col-lg-8">
-          <a href="${request.static_url('raspistillweb:pictures/')}${imagedata['filename']}">
-            <img src="${request.static_url('raspistillweb:pictures/')}${imagedata['filename']}" class="card-img">
+          <a href="${request.static_path('raspistillweb:pictures/'), _scheme='https'}${imagedata['filename']}">
+            <img src="${request.static_path('raspistillweb:pictures/'), _scheme='https'}${imagedata['filename']}" class="card-img">
           </a>
         </div>
         <div class="col-lg-4">

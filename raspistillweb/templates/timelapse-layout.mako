@@ -4,7 +4,7 @@
   <head>
     <title>${project}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="${request.static_url('raspistillweb:static/css/bootstrap.css')}" rel="stylesheet" media="screen">
+    <link href="${request.static_path('raspistillweb:static/css/bootstrap.css', _scheme='https')}" rel="stylesheet" media="screen">
   </head>
   <body>
 
@@ -33,8 +33,8 @@
     
     ${next.body()} 
   	
-    <script src="http://code.jquery.com/jquery.js"></script>
-    <script src="${request.static_url('raspistillweb:static/js/bootstrap.min.js')}"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="${request.static_path('raspistillweb:static/js/bootstrap.min.js', _scheme='https')}"></script>
   
   </body>
 </html>
