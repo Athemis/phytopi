@@ -18,6 +18,8 @@ requires = [
     'SQLAlchemy',#fordb
     'transaction',#fordb
     'zope.sqlalchemy',#fordb
+    'pillow',
+    'picamera'
     ]
 
 setup(name='raspistillWeb',
