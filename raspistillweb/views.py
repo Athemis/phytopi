@@ -73,7 +73,7 @@ IMAGE_RESOLUTIONS = [
     ]
 
 ENCODING_MODES = [
-    'jpg', 'png', 'bmp', 'gif'
+    'jpeg', 'png', 'bmp', 'gif'
     ]
 
 TIMELAPSE_UNITS = [
@@ -466,7 +466,10 @@ def setup_camera():
 def take_photo(filename):
     app_settings = DBSession.query(Settings).first()
 
-    image_format = app_settings.encoding_mode
+    if app_settings.encoding_mode == 'jpg':
+        image_format = 'jpeg'
+    else:
+        image_format = app_settings.encoding_mode
 
     camera = setup_camera()
     camera.capture('{}/{}'.format(RASPISTILL_DIRECTORY, filename), format=image_format)
@@ -499,7 +502,10 @@ def take_timelapse(filename, consistent_images=True):
             camera.awb_mode = 'off'
             camera.awb_gains = gains
 
-        image_format = app_settings.encoding_mode
+        if app_settings.encoding_mode == 'jpg':
+            image_format = 'jpeg'
+        else:
+            image_format = app_settings.encoding_mode
 
         # For 'time lapse in progress' bar
         starttime = time()
