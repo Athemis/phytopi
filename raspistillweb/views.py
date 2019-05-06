@@ -224,7 +224,9 @@ def timelapse_view(request):
             'timelapseTime': str(app_settings.timelapse_time),
             'timelapseTimeUnit': str(app_settings.timelapse_time_unit),
             'timelapseDatabase': timelapsedb,
-            'percentage_completed': percentage_completed
+            'timelapse_consistent_mode': app_settings.timelapse_consistent_mode,
+            'percentage_completed': percentage_completed,
+            'warmup_duration': app_settings.warmup_duration
             }
 
 # View for the timelapse start - no site will be generated
@@ -238,6 +240,7 @@ def timelapse_start_view(request):
     timelapse_time_temp = request.params['timelapseTime']
     timelapse_interval_unit_temp = request.params['timelapseIntervalUnit']
     timelapse_time_unit_temp = request.params['timelapseTimeUnit']
+    warmup_duration_temp = request.params['warmupDuration']
 
     if not timelapse_interval_temp:
         timelapse_interval_temp = app_settings.timelapse_interval
@@ -254,6 +257,11 @@ def timelapse_start_view(request):
         app_settings.timelapse_time = timelapse_time_temp
     else:
         preferences_fail_alert.append(TIMELAPSE_TIME_INTERVAL_ALERT)
+
+    try:
+        app_settings.timelapse_consistent_mode = bool(request.params['timelapseConsistentMode'])
+    except KeyError:
+        app_settings.timelapse_consistent_mode = False
 
     DBSession.flush()
 
