@@ -248,7 +248,7 @@ def timelapse_start_view(request):
         app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
         app_settings.timelapse_time_unit = timelapse_time_unit_temp
 
-        if timelapse_interval_unit_temp != "" and timelapse_time_unit_temp != "":
+        if timelapse_interval_temp and timelapse_time_temp:
             app_settings.timelapse_interval = timelapse_interval_temp
             app_settings.timelapse_time = timelapse_time_temp
     else:
@@ -391,7 +391,7 @@ def save_view(request):
         app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
         app_settings.timelapse_time_unit = timelapse_time_unit_temp
 
-        if timelapse_interval_unit_temp != "" and timelapse_time_unit_temp != "":
+        if timelapse_interval_temp and timelapse_time_temp:
             app_settings.timelapse_interval = timelapse_interval_temp
             app_settings.timelapse_time = timelapse_time_temp
     else:
