@@ -20,13 +20,11 @@ import exifread
 import os
 import threading
 import tarfile
-from time import strftime, localtime, asctime, mktime, sleep, time
+from time import strftime, localtime, asctime, sleep, time
 from stat import ST_MTIME, ST_SIZE
 
 from PIL import Image
 from picamera import PiCamera
-
-from sqlalchemy.exc import DBAPIError
 
 import transaction
 
