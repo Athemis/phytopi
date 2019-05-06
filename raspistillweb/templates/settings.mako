@@ -146,10 +146,11 @@
             <div class="form-group row">
               <label for="warmupDuration" class="col-xl-2 col-form-label">Warm-up</label>
               <div class="input-group col-xl-10">
-                <input type="number" class="form-control" id="warmupDuration" name="warmupDuration" placeholder="${warmup_duration}">
+                <input type="number" class="form-control" id="warmupDuration" name="warmupDuration" placeholder="${warmup_duration}" aria-describedby="warmupDurationHelpInline">
                 <div class="input-group-append">
                   <span class="input-group-text">s</span>
                 </div>
+                <small id="warmupDurationHelpInline" class="form-text text-muted">Wait this amount of time for the camera settings (exposure, white balance, gains) to settle before taking an image. Also applies for time-lapses.</small>
               </div>
             </div>
             <div class="form-group row">
@@ -212,7 +213,7 @@
                 <div class="form-check">
                   <input type="checkbox" class="form-check-input" value="1" id="timelapseConsistentMode" name="timelapseConsistentMode" aria-describedby="ConsistentModeHelpInline" ${'checked' if timelapse_consistent_mode == True else ''}>
                   <label for="timelapseConsistentMode" class="form-checklabel">Enable</label>
-                  <small id="ConsistentModeHelpInline" class="form-text text-muted">Take all images with identical settings.</small>
+                  <small id="ConsistentModeHelpInline" class="form-text text-muted">Take all images with identical settings (exposure, white balance, gains). Time to wait before settings are fixed can be set up by warm-up time (see above).</small>
                 </div>
               </div>
             </div>
