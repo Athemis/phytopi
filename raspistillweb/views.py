@@ -232,9 +232,9 @@ def timelapse_start_view(request):
 
     app_settings = DBSession.query(Settings).first()
 
-    timelapse_interval_temp = float(request.params['timelapseInterval'])
+    timelapse_interval_temp = request.params['timelapseInterval']
+    timelapse_time_temp = request.params['timelapseTime']
     timelapse_interval_unit_temp = request.params['timelapseIntervalUnit']
-    timelapse_time_temp = float(request.params['timelapseTime'])
     timelapse_time_unit_temp = request.params['timelapseTimeUnit']
 
     if not timelapse_interval_temp:
@@ -242,8 +242,8 @@ def timelapse_start_view(request):
     if not timelapse_time_temp:
         timelapse_time_temp = app_settings.timelapse_time
 
-    timelapse_interval_ms = convert_to_milli_seconds(timelapse_interval_temp, timelapse_interval_unit_temp)
-    timelapse_time_ms = convert_to_milli_seconds(timelapse_time_temp, timelapse_time_unit_temp)
+    timelapse_interval_ms = convert_to_milli_seconds(float(timelapse_interval_temp), timelapse_interval_unit_temp)
+    timelapse_time_ms = convert_to_milli_seconds(float(timelapse_time_temp), timelapse_time_unit_temp)
 
     if timelapse_interval_ms < timelapse_time_ms:
         app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
@@ -374,9 +374,9 @@ def save_view(request):
         app_settings.image_width = image_resolution.split('x')[0]
         app_settings.image_height = image_resolution.split('x')[1]
 
-    timelapse_interval_temp = float(request.params['timelapseInterval'])
+    timelapse_interval_temp = request.params['timelapseInterval']
+    timelapse_time_temp = request.params['timelapseTime']
     timelapse_interval_unit_temp = request.params['timelapseIntervalUnit']
-    timelapse_time_temp = float(request.params['timelapseTime'])
     timelapse_time_unit_temp = request.params['timelapseTimeUnit']
 
     if not timelapse_interval_temp:
@@ -384,8 +384,8 @@ def save_view(request):
     if not timelapse_time_temp:
         timelapse_time_temp = app_settings.timelapse_time
 
-    timelapse_interval_ms = convert_to_milli_seconds(timelapse_interval_temp, timelapse_interval_unit_temp)
-    timelapse_time_ms = convert_to_milli_seconds(timelapse_time_temp, timelapse_time_unit_temp)
+    timelapse_interval_ms = convert_to_milli_seconds(float(timelapse_interval_temp), timelapse_interval_unit_temp)
+    timelapse_time_ms = convert_to_milli_seconds(float(timelapse_time_temp), timelapse_time_unit_temp)
 
     if timelapse_interval_ms < timelapse_time_ms:
         app_settings.timelapse_interval_unit = timelapse_interval_unit_temp
