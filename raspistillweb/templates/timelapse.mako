@@ -60,7 +60,7 @@
                 </div>
               </div>
               <div class="form-group row">
-              <label for="warmupDuration" class="col-xl-2 col-form-label">Warm-up Duration</label>
+              <label for="warmupDuration" class="col-xl-2 col-form-label">Warm-up</label>
               <div class="input-group col-xl-10">
                 <input type="number" class="form-control" id="warmupDuration" name="warmupDuration" placeholder="${warmup_duration}">
                   <div class="input-group-append">
