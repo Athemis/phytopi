@@ -3,7 +3,8 @@ from sqlalchemy import (
     Index,
     Integer,
     Text,
-    Float
+    Float,
+    Boolean
     )
 
 from sqlalchemy.ext.declarative import declarative_base
@@ -43,12 +44,14 @@ class Settings(Base):
     timelapse_interval_unit = Column(Text)
     timelapse_time = Column(Integer)
     timelapse_time_unit = Column(Text)
+    timelapse_consistent_mode = Column(Boolean)
     exposure_mode = Column(Text)
     image_effect = Column(Text)
     awb_mode = Column(Text)
     image_ISO = Column(Text)
     image_rotation = Column(Text)
     encoding_mode = Column(Text)
+    warmup_duration = Column(Integer)
 
 class Timelapse(Base):
     __tablename__ = 'timelapse'
@@ -62,5 +65,6 @@ class Timelapse(Base):
     n_images = Column(Integer)
     resolution = Column(Text)
     encoding_mode = Column(Text)
+    timelapse_consistent_mode = Column(Boolean)
 
 Index('my_index', Picture.filename, unique=True, mysql_length=255)

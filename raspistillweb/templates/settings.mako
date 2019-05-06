@@ -144,6 +144,15 @@
               </div>  
             </div>
             <div class="form-group row">
+              <label for="warmupDuration" class="col-xl-2 col-form-label">Warm-up Duration</label>
+              <div class="input-group col-xl-10">
+                <input type="number" class="form-control" id="warmupDuration" name="warmupDuration" placeholder="${warmup_duration}">
+                <div class="input-group-append">
+                  <span class="input-group-text">s</span>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
               <label for="imageRotation1" class="col-xl-2 col-form-label">Image Rotation</label>
               <div class="col-xl-10">
                 <div class="btn-group" data-toggle="buttons">
@@ -194,6 +203,16 @@
                       % endif
                     % endfor
                   </select>
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-xl-2" col-form-label">Consistent Images</div>
+              <div class="col-xl-10">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" value="1" id="timelapseConsistentMode" name="timelapseConsistentMode" aria-describedby="ConsistentModeHelpInline" ${'checked' if timelapse_consistent_mode == True else ''}>
+                  <label for="timelapseConsistentMode" class="form-checklabel">Enable</label>
+                  <small id="ConsistentModeHelpInline" class="form-text text-muted">Take all images with identical settings.</small>
                 </div>
               </div>
             </div>

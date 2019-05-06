@@ -140,28 +140,30 @@ def settings_view(request):
         preferences_success_alert_temp = True
         preferences_success_alert = False
 
-    return {'project' : 'raspistillWeb',
-            'image_effects' : IMAGE_EFFECTS,
-            'image_effect' : app_settings.image_effect,
-            'exposure_mode' : app_settings.exposure_mode,
-            'awb_mode' : app_settings.awb_mode,
-            'encoding_modes' : ENCODING_MODES,
-            'encoding_mode' : app_settings.encoding_mode,
-            'exposure_modes' : EXPOSURE_MODES,
-            'awb_modes' : AWB_MODES,
-            'image_width' : str(app_settings.image_width),
-            'image_height' : str(app_settings.image_height),
-            'image_iso' : app_settings.image_ISO,
-            'iso_options' :  ISO_OPTIONS,
+    return {'project': 'raspistillWeb',
+            'image_effects': IMAGE_EFFECTS,
+            'image_effect': app_settings.image_effect,
+            'exposure_mode': app_settings.exposure_mode,
+            'awb_mode': app_settings.awb_mode,
+            'encoding_modes': ENCODING_MODES,
+            'encoding_mode': app_settings.encoding_mode,
+            'exposure_modes': EXPOSURE_MODES,
+            'awb_modes': AWB_MODES,
+            'image_width': str(app_settings.image_width),
+            'image_height': str(app_settings.image_height),
+            'image_iso': app_settings.image_ISO,
+            'iso_options':  ISO_OPTIONS,
             'timelapse_units': TIMELAPSE_UNITS,
-            'timelapse_interval' : str(app_settings.timelapse_interval),
-            'timelapse_interval_unit' : str(app_settings.timelapse_interval_unit),
-            'timelapse_time' : str(app_settings.timelapse_time),
-            'timelapse_time_unit' : str(app_settings.timelapse_time_unit),
-            'preferences_fail_alert' : preferences_fail_alert_temp,
-            'preferences_success_alert' : preferences_success_alert_temp,
-            'image_rotation' : app_settings.image_rotation,
-            'image_resolutions' : IMAGE_RESOLUTIONS
+            'timelapse_interval': str(app_settings.timelapse_interval),
+            'timelapse_interval_unit': str(app_settings.timelapse_interval_unit),
+            'timelapse_time': str(app_settings.timelapse_time),
+            'timelapse_time_unit': str(app_settings.timelapse_time_unit),
+            'timelapse_consistent_mode': app_settings.timelapse_consistent_mode,
+            'preferences_fail_alert': preferences_fail_alert_temp,
+            'preferences_success_alert': preferences_success_alert_temp,
+            'image_rotation': app_settings.image_rotation,
+            'image_resolutions': IMAGE_RESOLUTIONS,
+            'warmup_duration': app_settings.warmup_duration,
             }
 
 # View for the /archive site
@@ -355,6 +357,7 @@ def save_view(request):
     image_rotation_temp = request.params['imageRotation']
     image_resolution = request.params['imageResolution']
     encoding_mode_temp = request.params['encodingMode']
+    warmup_duration_temp = request.params['warmupDuration']
 
     app_settings = DBSession.query(Settings).first()
 
@@ -427,6 +430,14 @@ def save_view(request):
 
     if preferences_fail_alert == []:
         preferences_success_alert = True
+
+    if warmup_duration_temp:
+        app_settings.warmup_duration = int(warmup_duration_temp)
+
+    try:
+        app_settings.timelapse_consistent_mode = bool(request.params['timelapseConsistentMode'])
+    except KeyError:
+        app_settings.timelapse_consistent_mode = False
 
     DBSession.flush()
     return HTTPFound(location='/settings')

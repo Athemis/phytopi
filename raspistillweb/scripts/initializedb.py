@@ -60,12 +60,14 @@ def main(argv=sys.argv):
                         timelapse_interval_unit = 'ms',
                         timelapse_time = 20000,
                         timelapse_time_unit = 'ms',
+                        timelapse_consistent_mode = False,
                         exposure_mode = 'auto',
                         image_effect = 'none',
                         awb_mode = 'auto',
                         image_ISO = 'auto',
                         image_rotation = '0',
                         encoding_mode = 'jpg',
+                        warmup_duration = 2
                         )
         DBSession.add(app_settings)
 
@@ -79,6 +81,7 @@ def main(argv=sys.argv):
                         n_images = 1,
                         resolution = '-',
                         encoding_mode = '-',
+                        timelapse_consistent_mode = False,
                         )
 
         DBSession.add(timelapse)
