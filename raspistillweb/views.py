@@ -383,13 +383,13 @@ def save_view(request):
     app_settings = DBSession.query(Settings).first()
 
     if image_width_temp:
-        if 0 < int(image_width_temp) < 2593:
+        if 0 < int(image_width_temp) <= 3280:
             app_settings.image_width = image_width_temp
         else:
             preferences_fail_alert.append(IMAGE_WIDTH_ALERT)
 
     if image_height_temp:
-        if 0 < int(image_height_temp) < 1945:
+        if 0 < int(image_height_temp) <= 2464:
             app_settings.image_height = image_height_temp
         else:
             preferences_fail_alert.append(IMAGE_HEIGHT_ALERT)
