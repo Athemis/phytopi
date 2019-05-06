@@ -16,13 +16,11 @@
 
 from pyramid.view import view_config
 from pyramid.httpexceptions import HTTPFound
-from pyramid.request import Request
 import exifread
 import os
 import threading
 import tarfile
-from subprocess import run, Popen, PIPE
-from time import gmtime, strftime, localtime, asctime, mktime, sleep, time
+from time import strftime, localtime, asctime, mktime, sleep, time
 from stat import ST_MTIME, ST_SIZE
 
 from PIL import Image
