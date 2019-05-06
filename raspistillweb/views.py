@@ -103,6 +103,7 @@ TIME_CONVERSION_MILLI_SECONDS = {
 
 timelapse = False
 timelapse_database = None
+timelapse_thread = None
 percentage_completed = 0
 starttime = 0
 
@@ -230,7 +231,7 @@ def timelapse_view(request):
 # View for the timelapse start - no site will be generated
 @view_config(route_name='timelapse_start')
 def timelapse_start_view(request):
-    global timelapse
+    global timelapse, timelapse_thread
 
     app_settings = DBSession.query(Settings).first()
 
@@ -256,6 +257,9 @@ def timelapse_start_view(request):
     else:
         preferences_fail_alert.append(TIMELAPSE_TIME_INTERVAL_ALERT)
 
+    if warmup_duration_temp:
+        app_settings.warmup_duration = warmup_duration_temp
+
     try:
         app_settings.timelapse_consistent_mode = bool(request.params['timelapseConsistentMode'])
     except KeyError:
@@ -265,8 +269,19 @@ def timelapse_start_view(request):
 
     timelapse = True
     filename = strftime("%Y-%m-%d.%H.%M.%S", localtime())
-    t = threading.Thread(target=take_timelapse, args=(filename, ))
-    t.start()
+    timelapse_thread = threading.Thread(target=take_timelapse, args=(filename, ))
+    timelapse_thread.start()
+    return HTTPFound(location='/timelapse')
+
+# View for the timelapse stop - no site will be generated
+@view_config(route_name='timelapse_stop')
+def timelapse_stop_view(request):
+    global timelapse, timelapse_thread
+
+    if timelapse and timelapse_thread is not None:
+        if timelapse_thread.is_alive():
+            timelapse = False
+    
     return HTTPFound(location='/timelapse')
 
 
@@ -538,7 +553,7 @@ def take_timelapse(filename, consistent_images=True):
         base_filename = '{tl_dir}/{fn}/IMG_{fn}_{counter}.{image_format}'.format(**file_data)
 
         for i, image_filename in enumerate(camera.capture_continuous(base_filename, format=image_format)):
-            if i == stop_at:
+            if i == stop_at or timelapse is False:
                 break
             sleep(timelapse_interval_ms/1000)  # wait
 
